@@ -1,19 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var url = require('url');
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json();
 
 /* regist */
 /* id, password, month, height, weight, gender*/
-router.post('/', function(req, res, next) {
-  var q = url.parse(req.url,true).query;
-  var id = q.id;
-  var pwd = q.pwd;
-  var month = q.month;
-  var height = q.height;
-  var weight = q.weight;
-  var gender = q.gender;
-  res.send('ID : ' + id + '\n' +'비밀번호 : ' + pwd +'\n' + month + '개월' + '\n' 
-  + height +'Cm' + '\n' + weight +'Kg'+ '\n' + gender);
+router.post('/', jsonParser, urlencodedParser, function(req, res) {
+  if (!req.body)
+  { 
+    return res.sendStatus(400);
+  }
+  var id = req.body.id;
+  var pwd = req.body.pwd;
+  var month = req.body.month;
+  var height = req.body.height;
+  var weight = req.body.weight;
+  var gender = req.body.gender;
+
+  res.send(id +'\n' +pwd + '\n' + month + 
+  '\n'+ height + '\n' + weight + '\n' + gender);
+
+  console.log(id +'\n' +pwd + '\n' + month + 
+  '\n'+ height + '\n' + weight + '\n' + gender);
 });
 
 module.exports = router;
