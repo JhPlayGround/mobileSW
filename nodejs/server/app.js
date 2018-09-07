@@ -41,8 +41,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, function(){
-	console.log('connected');		
+//server open
+const http = require('http');
+ 
+const hostname = '192.168.1.58';
+const port = 3000;
+ 
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Korean Can not use...');
+}).listen(port, hostname, () => {
+  console.log('Server Connected');
 });
+
 
 module.exports = app;
