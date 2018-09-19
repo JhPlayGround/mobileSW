@@ -48,11 +48,11 @@ const hostname = '192.168.1.58';
 const port = 3000;
  
 http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Korean Can not use...');
-}).listen(port, hostname, () => {
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+})
+
+app.listen(port, hostname, () => {
   console.log('Server Connected');
 });
-
 
 module.exports = app;
