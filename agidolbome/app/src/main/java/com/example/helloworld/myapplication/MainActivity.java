@@ -1,5 +1,6 @@
 package com.example.helloworld.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,16 +19,20 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_clothes:
-                    mTextMessage.setText(R.string.title_clothes);
+                    Intent login1 = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(login1);
                     return true;
                 case R.id.navigation_daily:
-                    mTextMessage.setText(R.string.title_daily);
+                    Intent login2 = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(login2);
                     return true;
                 case R.id.navigation_compare:
-                    mTextMessage.setText(R.string.title_compare);
+                    Intent login3 = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(login3);
                     return true;
                 case R.id.navigation_board:
-                    mTextMessage.setText(R.string.title_board);
+                    Intent login4 = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(login4);
                     return true;
             }
             return false;
