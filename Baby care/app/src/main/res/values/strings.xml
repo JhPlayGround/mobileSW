@@ -4,4 +4,7 @@
     <string name="titleDaily">데일리 이유식</string>
     <string name="titleCompare">유아 비교</string>
     <string name="titleBoard">게시판</string>
+    <string name="mybabytext">[우리 아이 성장 상태]</string>
+    <string name="avgbabytext">[평균 아이 성장 상태]</string>
+    <string name="normalgrowtext">우리아이가 평균만큼\n잘 크고 있어요</string>
 </resources>
