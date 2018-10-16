@@ -7,6 +7,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     compare fmCompare;
     daily fmDaily;
     mainHome fmHome;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -85,11 +90,9 @@ public class MainActivity extends AppCompatActivity {
         fmDaily = new daily();
         fmHome = new mainHome();
 
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentLayout,fmHome).commit();
-    }
 
+    }
 }

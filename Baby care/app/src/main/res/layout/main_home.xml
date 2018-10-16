@@ -32,7 +32,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="다리없는 바디수트"
                 android:textSize="25dp"/>
         </LinearLayout>
@@ -65,7 +64,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="보온성 겉옷"
                 android:textSize="30dp"/>
         </LinearLayout>
@@ -98,7 +96,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="전신 바디수트"
                 android:textSize="30dp"/>
         </LinearLayout>
@@ -131,7 +128,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="보온 내복"
                 android:textSize="30dp"/>
         </LinearLayout>
@@ -164,7 +160,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="양말"
                 android:textSize="30dp"/>
         </LinearLayout>
@@ -197,7 +192,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="장갑"
                 android:textSize="30dp"/>
         </LinearLayout>
@@ -230,7 +224,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#0000FF"
                 android:text ="모자"
                 android:textSize="30dp"/>
         </LinearLayout>
