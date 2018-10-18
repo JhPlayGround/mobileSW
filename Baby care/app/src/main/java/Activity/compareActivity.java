@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class compare extends Fragment{
+public class compareActivity extends Fragment{
     MainActivity activity;
     int imageIndex = 0;
     Button compareBtn;

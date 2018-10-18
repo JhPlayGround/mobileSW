@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -21,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoginActivity extends AppCompatActivity {
+public class registActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button btnRegist = (Button)findViewById(R.id.btnRegist);
-        Button btnCancel = (Button)findViewById(R.id.btnCancel);
+        EditText etID = (EditText)findViewById(R.id.etID);
+        EditText etPW = (EditText)findViewById(R.id.etPW);
 
 
 
-        }
     }
+}
