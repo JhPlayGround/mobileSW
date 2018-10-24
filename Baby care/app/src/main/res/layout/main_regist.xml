@@ -41,6 +41,7 @@
         android:layout_weight="0.02"
         android:layout_gravity="center"
         android:text="회원 가입"
+        android:onClick="insert"
         android:background="@drawable/shape_list"   />
 
     <TextView
@@ -60,6 +61,12 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.05"/>
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하하하하하하하하하하하"
+        />
 
 
 </LinearLayout>
