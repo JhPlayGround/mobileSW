@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             //로그인 기록 정보 확인
-            int loginRecord = 0;
+            int loginRecord = 1;
             if(loginRecord==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
