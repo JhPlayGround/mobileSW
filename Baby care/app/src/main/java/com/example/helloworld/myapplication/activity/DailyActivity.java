@@ -1,5 +1,4 @@
-package Activity;
-
+package com.example.helloworld.myapplication.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class boardActivity extends Fragment {
-
+public class DailyActivity extends Fragment {
     MainActivity activity;
 
     @Override
@@ -32,7 +30,7 @@ public class boardActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_board,mainFragmentLayout,false);
+        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_daily,mainFragmentLayout,false);
 
         return view;
     }

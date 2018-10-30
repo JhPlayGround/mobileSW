@@ -1,4 +1,5 @@
-package Activity;
+package com.example.helloworld.myapplication.activity;
+
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class cancelActivity extends AppCompatActivity {
+public class CancelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

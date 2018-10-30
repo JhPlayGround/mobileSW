@@ -1,12 +1,10 @@
-package Activity;
+package com.example.helloworld.myapplication.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,22 +21,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     ViewFlipper Vf;
     Button BtnSignIn, BtnSignUp;
@@ -68,7 +54,7 @@ public class loginActivity extends AppCompatActivity {
         BtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(loginActivity.this, "",
+                dialog = ProgressDialog.show(com.example.helloworld.myapplication.activity.LoginActivity.this, "",
                         "Validating user...", true);
                 new Thread(new Runnable() {
                     public void run() {
@@ -103,14 +89,14 @@ public class loginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(loginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(com.example.helloworld.myapplication.activity.LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                startActivity((new Intent(loginActivity.this, MainActivity.class)));
+                startActivity((new Intent(com.example.helloworld.myapplication.activity.LoginActivity.this, MainActivity.class)));
                 finish();
             } else {
-                Toast.makeText(loginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.helloworld.myapplication.activity.LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)
@@ -122,7 +108,7 @@ public class loginActivity extends AppCompatActivity {
 
     public void CliSignUp(View view)
     {
-        Intent intent = new Intent(this, registActivity.class);
+        Intent intent = new Intent(this, RegistActivity.class);
         startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
-package Activity;
+package com.example.helloworld.myapplication.activity;
 
+import com.example.helloworld.myapplication.activity.MainActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class clothesActivity extends Fragment {
+public class ClothesActivity extends Fragment {
     MainActivity activity;
 
     @Override

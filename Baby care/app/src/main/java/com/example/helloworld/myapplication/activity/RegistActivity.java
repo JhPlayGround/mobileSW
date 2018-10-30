@@ -1,30 +1,24 @@
-package Activity;
+package com.example.helloworld.myapplication.activity;
+
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
 
-public class registActivity extends AppCompatActivity {
+public class RegistActivity extends AppCompatActivity {
 
     private EditText editTextId;
     private EditText editTextPw;
@@ -51,7 +45,7 @@ public class registActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(registActivity.this, "Please Wait", null, true, true);
+                loading = ProgressDialog.show(com.example.helloworld.myapplication.activity.RegistActivity.this, "Please Wait", null, true, true);
             }
             @Override
             protected void onPostExecute(String s) {
@@ -66,7 +60,7 @@ public class registActivity extends AppCompatActivity {
                     String Id = (String) params[0];
                     String Pw = (String) params[1];
 
-                    String link = "http://192.168.1.48/regist.php";
+                    String link = "http://192.168.1.75/regist.php";
                     String data = URLEncoder.encode("Id", "UTF-8") + "=" + URLEncoder.encode(Id, "UTF-8");
                     data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
 

@@ -1,4 +1,4 @@
-package Activity;
+package com.example.helloworld.myapplication.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class compareActivity extends Fragment{
+public class CompareActivity extends Fragment{
     MainActivity activity;
     int imageIndex = 0;
     Button compareBtn;
