@@ -54,7 +54,7 @@
         android:id="@+id/btnRegist"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.02"
+        android:layout_weight="0.06"
         android:layout_gravity="center"
         android:text="회원 가입"
         android:onClick="CliSignUp"
@@ -80,22 +80,41 @@
         android:layout_weight="0.05"/>
 
     <LinearLayout
-        android:layout_width="256dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="0.06"
         android:layout_gravity="center"
-        android:layout_weight="0.1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/okbutton" />
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/okbutton" />
 
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/cancelbutton" />
+            android:layout_weight="0.5"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cancelbutton" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
