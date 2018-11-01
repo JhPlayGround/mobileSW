@@ -36,7 +36,7 @@ public class DailyActivity extends Fragment {
 
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_daily,mainFragmentLayout,false);
 
-        CalendarView calendar = (CalendarView)view.findViewById(R.id.calendar);
+        final CalendarView calendar = (CalendarView)view.findViewById(R.id.calendar);
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

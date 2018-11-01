@@ -10,5 +10,6 @@
         android:minDate="01/01/2018"
         android:maxDate="12/31/2020"
         android:showWeekNumber="false"
+        android:theme="@style/CalendarViewTheme"
         />
 </LinearLayout>
