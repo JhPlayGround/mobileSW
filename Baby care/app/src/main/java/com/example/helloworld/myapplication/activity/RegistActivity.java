@@ -1,5 +1,4 @@
 package com.example.helloworld.myapplication.activity;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +16,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import com.example.helloworld.myapplication.R;
+
 
 public class RegistActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class RegistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_regist);
+        setContentView(R.layout.login_regist);
 
         editTextId = (EditText) findViewById(R.id.etID);
         editTextPw = (EditText) findViewById(R.id.etPW);
@@ -45,7 +46,7 @@ public class RegistActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(com.example.helloworld.myapplication.activity.RegistActivity.this, "Please Wait", null, true, true);
+                loading = ProgressDialog.show(RegistActivity.this, "Please Wait", null, true, true);
             }
             @Override
             protected void onPostExecute(String s) {
@@ -60,7 +61,7 @@ public class RegistActivity extends AppCompatActivity {
                     String Id = (String) params[0];
                     String Pw = (String) params[1];
 
-                    String link = "http://192.168.1.75/regist.php";
+                    String link = "http://192.168.1.48/regist.php";
                     String data = URLEncoder.encode("Id", "UTF-8") + "=" + URLEncoder.encode(Id, "UTF-8");
                     data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
 

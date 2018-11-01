@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.helloworld.myapplication.R;
+
 public class CompareActivity extends Fragment{
     MainActivity activity;
     int imageIndex = 0;

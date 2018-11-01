@@ -7,6 +7,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.helloworld.myapplication.decorators.Main2Activity;
+
+import com.example.helloworld.myapplication.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,23 +26,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             //로그인 기록 정보 확인
-            int loginRecord = 1;
+            int loginRecord = 0;
             if(loginRecord==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
-                        Intent login1 = new Intent(getApplicationContext(), com.example.helloworld.myapplication.activity.LoginActivity.class);
+                        Intent login1 = new Intent(getApplicationContext(), Main2Activity.class);
                         startActivity(login1);
                         return true;
                     case R.id.navigation_daily:
-                        Intent login2 = new Intent(getApplicationContext(), com.example.helloworld.myapplication.activity.LoginActivity.class);
+                        Intent login2 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(login2);
                         return true;
                     case R.id.navigation_compare:
-                        Intent login3 = new Intent(getApplicationContext(), com.example.helloworld.myapplication.activity.LoginActivity.class);
+                        Intent login3 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(login3);
                         return true;
                     case R.id.navigation_board:
-                        Intent login4 = new Intent(getApplicationContext(), com.example.helloworld.myapplication.activity.LoginActivity.class);
+                        Intent login4 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(login4);
                         return true;
                 }
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         fmBoard = new BoardActivity();
         fmClothes = new ClothesActivity();

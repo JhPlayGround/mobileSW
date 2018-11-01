@@ -21,8 +21,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.helloworld.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -54,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         BtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(com.example.helloworld.myapplication.activity.LoginActivity.this, "",
+                dialog = ProgressDialog.show(LoginActivity.this, "",
                         "Validating user...", true);
                 new Thread(new Runnable() {
                     public void run() {
@@ -89,14 +92,14 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(com.example.helloworld.myapplication.activity.LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                startActivity((new Intent(com.example.helloworld.myapplication.activity.LoginActivity.this, MainActivity.class)));
+                startActivity((new Intent(LoginActivity.this, MainActivity.class)));
                 finish();
             } else {
-                Toast.makeText(com.example.helloworld.myapplication.activity.LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.helloworld.myapplication.R;
+
 public class BoardActivity extends Fragment {
 
     MainActivity activity;
