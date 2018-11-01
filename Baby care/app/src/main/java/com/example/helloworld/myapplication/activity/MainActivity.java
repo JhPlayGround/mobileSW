@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.helloworld.myapplication.R;
+import com.example.helloworld.myapplication.Util.LoginActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public static int LOGINRECORD = 0;
 
     BoardActivity fmBoard;
     ClothesActivity fmClothes;
@@ -24,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             //로그인 기록 정보 확인
-            int loginRecord = 1;
-            if(loginRecord==0) {
+            if(LOGINRECORD==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
                         Intent login1 = new Intent(getApplicationContext(), LoginActivity.class);
