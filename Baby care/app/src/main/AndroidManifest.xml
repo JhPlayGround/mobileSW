@@ -23,7 +23,6 @@
         <activity android:name="com.example.helloworld.myapplication.activity.LoginActivity" />
         <activity android:name="com.example.helloworld.myapplication.activity.RegistActivity" />
         <activity android:name="com.example.helloworld.myapplication.activity.CancelActivity" />
-        <activity android:name="com.example.helloworld.myapplication.decorators.Main2Activity"></activity>
     </application>
 
 </manifest>

@@ -7,8 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.example.helloworld.myapplication.decorators.Main2Activity;
-
 import com.example.helloworld.myapplication.R;
 
 
@@ -26,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             //로그인 기록 정보 확인
-            int loginRecord = 0;
+            int loginRecord = 1;
             if(loginRecord==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
-                        Intent login1 = new Intent(getApplicationContext(), Main2Activity.class);
+                        Intent login1 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(login1);
                         return true;
                     case R.id.navigation_daily:
