@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.helloworld.myapplication.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.helloworld.myapplication.activity.LoginActivity" />
-        <activity android:name="com.example.helloworld.myapplication.activity.RegistActivity" />
-        <activity android:name="com.example.helloworld.myapplication.activity.CancelActivity" />
+        <activity android:name=".Util.LoginActivity" />
+        <activity android:name=".Util.RegistActivity" />
+        <activity android:name=".activity.CancelActivity" />
+        <activity android:name=".Util.RegistByeActivity"></activity>
     </application>
 
 </manifest>

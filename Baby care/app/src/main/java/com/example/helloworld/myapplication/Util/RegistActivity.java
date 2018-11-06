@@ -1,5 +1,6 @@
-package com.example.helloworld.myapplication.activity;
+package com.example.helloworld.myapplication.Util;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import com.example.helloworld.myapplication.R;
+import com.example.helloworld.myapplication.activity.MainActivity;
 
 
 public class RegistActivity extends AppCompatActivity {
@@ -94,5 +96,10 @@ public class RegistActivity extends AppCompatActivity {
         task.execute(Id, Pw);
     }
 
+    public void signNo(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }
