@@ -60,13 +60,6 @@ public class DailyActivity extends Fragment {
             }
      });
 
-        /*
-        warningImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
-           }
-        });*/
         warningImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
