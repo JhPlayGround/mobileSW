@@ -13,7 +13,7 @@ import com.example.helloworld.myapplication.Util.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int LOGINRECORD = 0;
+    public static int LOGINRECORD = 1;
 
     BoardActivity fmBoard;
     ClothesActivity fmClothes;
