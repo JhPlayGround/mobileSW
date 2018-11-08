@@ -1,4 +1,4 @@
-package com.example.helloworld.myapplication.activity;
+package com.example.helloworld.myapplication.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.helloworld.myapplication.R;
 
-public class MainHomeActivity extends Fragment {
+public class MainHomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
 

@@ -1,4 +1,4 @@
-package com.example.helloworld.myapplication.activity;
+package com.example.helloworld.myapplication.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,10 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.example.helloworld.myapplication.R;
+import com.example.helloworld.myapplication.activity.MainActivity;
 
 import java.util.Calendar;
 
-public class DailyActivity extends Fragment {
+public class DailyFragment extends Fragment {
     MainActivity activity;
     private PopupWindow mPopupWindow;
 

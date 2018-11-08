@@ -1,4 +1,5 @@
-package com.example.helloworld.myapplication.activity;
+package com.example.helloworld.myapplication.fragment;
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.helloworld.myapplication.R;
+import com.example.helloworld.myapplication.activity.MainActivity;
 
-public class ClothesActivity extends Fragment {
+public class BoardFragment extends Fragment {
+
     MainActivity activity;
 
     @Override
@@ -32,9 +35,8 @@ public class ClothesActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_clothes,mainFragmentLayout,false);
+        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_board,mainFragmentLayout,false);
 
         return view;
     }
-
 }
