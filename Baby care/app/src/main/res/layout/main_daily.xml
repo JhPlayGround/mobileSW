@@ -17,13 +17,13 @@
             android:textStyle="bold"
             android:textSize="30dp" />
         <ImageView
-            android:id="@+id/warning"
+            android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:src="@drawable/warning"
+            android:src="@drawable/help"
             android:clickable="true"
-            android:onClick="warning"/>
+            android:onClick="help"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

@@ -49,24 +49,22 @@ public class DailyActivity extends Fragment {
 
         CalendarView calendar = (CalendarView)view.findViewById(R.id.calendar);
 
-        ImageView warningImg = (ImageView)view.findViewById(R.id.warning);
+        ImageView helpImg = (ImageView)view.findViewById(R.id.help);
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 String StrDay = year+"."+(month+1)+"."+dayOfMonth;
-                String food = "오늘의 영양소 탄수화물 \n 추천 재료 : 쌀 / 대채 재료 : 밀가루";
-                Toast.makeText(getContext(), food, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), StrDay, Toast.LENGTH_SHORT).show();
             }
      });
 
-        warningImg.setOnClickListener(new View.OnClickListener() {
+        helpImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View popupView = getLayoutInflater().inflate(R.layout.activity_popup, null);
                 mPopupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                //popupView 에서 (LinearLayout 을 사용) 레이아웃이 둘러싸고 있는 컨텐츠의 크기 만큼 팝업 크기를 지정
-                mPopupWindow.setFocusable(true); // 외부 영역 선택히 PopUp 종료
+                mPopupWindow.setFocusable(true);
                 mPopupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
             }
         });
