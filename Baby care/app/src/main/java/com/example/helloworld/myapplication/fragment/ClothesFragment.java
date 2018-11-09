@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.helloworld.myapplication.R;
@@ -22,13 +23,15 @@ import com.example.helloworld.myapplication.weather.WeatherToHangeul;
 import java.util.ArrayList;
 
 public class ClothesFragment extends Fragment {
-    MainActivity activity;
-
     public static final int THREAD_HANDLER_SUCCESS_INFO = 1;
+    MainActivity activity;
     TextView tv_WeatherInfo;
-    TextView tv_DayPrint;
-
     ForeCastManager mForeCast;
+    TextView tvLocal;
+    TextView tvTemp;
+    TextView tvCloud;
+    ImageView ivCloud;
+
 
     String lon = "128.3910799"; // 좌표 설정
     String lat = "36.1444292";  // 좌표 설정
@@ -55,7 +58,15 @@ public class ClothesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_clothes,mainFragmentLayout,false);
 
-        tv_DayPrint = (TextView)view.findViewById(R.id.tvDayData);
+        //지역
+        //TextView tvLocal = (TextView)view.findViewById(R.id.tvLocal);
+        tvLocal = (TextView) view.findViewById(R.id.tvLocal);
+        //온도
+        tvTemp = (TextView)view.findViewById(R.id.tvTemp);
+        //구름량
+        tvCloud = (TextView)view.findViewById(R.id.tvCloud);
+        //구름 이미지
+        ImageView ivCloud = (ImageView)view.findViewById(R.id.ivCloud);
         Initialize();
 
         return view;
@@ -66,14 +77,24 @@ public class ClothesFragment extends Fragment {
         mForeCast.run();
     }
 
-
-    public String PrintDay(){
-        String mData = "";
-        for(int i =0; i < mWeatherInfomation.size(); i++){
-            mData =  mWeatherInfomation.get(i).getWeather_Day_Go() + "\r\n"
-                    + mWeatherInfomation.get(i).getWeather_Day_End() + "\r\n";
-        }
-        return mData;
+    //지역 출력 메소드
+    public String LocalPrint(){
+        String LocalData = "";
+        LocalData =  mWeatherInfomation.get(1).getWeather_Name();
+        return LocalData;
+    }
+    //온도 출력 메소드
+    public String TempPrint(){
+        String TempData = "";
+        TempData =  mWeatherInfomation.get(1).getTemp_Max();
+        TempData =  mWeatherInfomation.get(1).getTemp_Min();
+        return TempData;
+    }
+    //구름량 출력 메소드
+    public String CloudPrint(){
+        String CloudData = "";
+        CloudData =  mWeatherInfomation.get(1).getClouds_Per();
+        return CloudData;
     }
 
     public String PrintValue() {
@@ -129,17 +150,25 @@ public class ClothesFragment extends Fragment {
                     mForeCast.getmWeather();
                     mWeatherData = mForeCast.getmWeather();
                     if (mWeatherData.size() == 0)
-                        tv_WeatherInfo.setText("데이터가 없습니다");
+                        tvLocal.setText("데이터가 없습니다");
+                       tvTemp.setText("데이터가 없습니다");
+                       tvCloud.setText("데이터가 없습니다");
 
                     DataToInformation(); // 자료 클래스로 저장,
 
-                    String data = "";
-                    String dayData = "";
-                    DataChangedToHangeul();
-                    data = data + PrintValue();
-                    dayData = dayData + PrintDay();
+                    String localData = "";
+                    String tempData = "";
+                    String cloudData = "";
 
-                    tv_DayPrint.setText(dayData);
+                    DataChangedToHangeul();
+
+                    localData = localData + LocalPrint();
+                    tempData = tempData + TempPrint();
+                    cloudData = cloudData + CloudPrint();
+
+                    tvLocal.setText(localData);
+                    tvTemp.setText(tempData);
+                    tvCloud.setText(cloudData);
                     break;
                 default:
                     break;

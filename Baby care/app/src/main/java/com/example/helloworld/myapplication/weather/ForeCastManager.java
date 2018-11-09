@@ -71,7 +71,9 @@ public class ForeCastManager extends Thread{
                     ContentValues mContent = new ContentValues();
 
                     for( ; ; ) {
-                        if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("time")) {
+                         if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("symbol")) {
+                             mContent.put("name", parser.getAttributeValue(null, ""));
+                        } else if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("time")) {
                             mContent.put("weather_Day_Go", parser.getAttributeValue(null, "from"));
                             mContent.put("weather_Day_End", parser.getAttributeValue(null, "to"));
                         } else if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("symbol")) {
