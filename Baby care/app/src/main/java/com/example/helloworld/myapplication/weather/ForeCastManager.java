@@ -1,8 +1,11 @@
 package com.example.helloworld.myapplication.weather;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 
+import com.example.helloworld.myapplication.activity.MainActivity;
 import com.example.helloworld.myapplication.fragment.ClothesFragment;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class ForeCastManager extends Thread{
 
     String lon,lat;
+    static String city;
 
     ArrayList<ContentValues> mWeatehr;
     ClothesFragment mContext;
@@ -35,7 +39,6 @@ public class ForeCastManager extends Thread{
 
     public ArrayList<ContentValues> GetOpenWeather(String lon,String lat)
     {
-        String city;
         ArrayList<ContentValues> mTotalValue = new ArrayList<ContentValues>();
         String key = "8a1ec5725cd1b763b9b7239823c9f080";
         try{
@@ -59,21 +62,25 @@ public class ForeCastManager extends Thread{
 
             int parserEvent = parser.getEventType();
             while (parserEvent != XmlPullParser.END_DOCUMENT) { //  문서 시작
+
+                ContentValues mContent = new ContentValues();
+
                 // XML문이 끝날 때 까지 정보를 읽는다
                 if(parserEvent == XmlPullParser.START_TAG  && parser.getName().equals("name")) {
                     city = parser.nextText();
 
-                    Log.i("cityCheck","city"+city);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("city",city);
+                    //ClothesFragment에 접근하기 위해 ClothesFragment mContext 사용
+                    mContext.setArguments(bundle);
+
                 }
                 if(parserEvent == XmlPullParser.START_TAG  && parser.getName().equals("time")){
                     //시작태그의 이름을 알아냄
                     int checkStartTag = parserEvent;
-                    ContentValues mContent = new ContentValues();
 
                     for( ; ; ) {
-                         if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("symbol")) {
-                             mContent.put("name", parser.getAttributeValue(null, ""));
-                        } else if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("time")) {
+                         if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("time")) {
                             mContent.put("weather_Day_Go", parser.getAttributeValue(null, "from"));
                             mContent.put("weather_Day_End", parser.getAttributeValue(null, "to"));
                         } else if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("symbol")) {
@@ -119,8 +126,6 @@ public class ForeCastManager extends Thread{
 
         return mTotalValue;
     }
-
-
 
     @Override
     public void run() {
