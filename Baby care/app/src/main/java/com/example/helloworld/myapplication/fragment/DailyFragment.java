@@ -20,13 +20,14 @@ import android.widget.PopupWindow;
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
 import com.example.helloworld.myapplication.util.PopUpActivity;
-import com.github.chrisbanes.photoview.PhotoView;
+
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
 public class DailyFragment extends Fragment {
     MainActivity activity;
+    int babymonth = 4;
 
     @Override
     public void onAttach(Context context){
@@ -54,7 +55,25 @@ public class DailyFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 String StrDay = year+"."+(month+1)+"."+dayOfMonth;
-                Toast.makeText(getContext(), StrDay, Toast.LENGTH_SHORT).show();
+                if(babymonth < 4)
+                {
+                    Toast.makeText(getContext(), "오늘의 이유식 : 모유, 분유", Toast.LENGTH_SHORT).show();
+                }
+                else if(babymonth ==4)
+                {
+                    if(dayOfMonth % 3 == 0)
+                    {
+                        Toast.makeText(getContext(), "오늘의 이유식 : 쌀\n대체 음식 : 찹쌀", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(dayOfMonth % 3 == 1)
+                    {
+                        Toast.makeText(getContext(), "오늘의 이유식 : 감자\n대체 음식 : 고구마,애호박, 단호박, 오이", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), "오늘의 이유식 : 사과\n대체 음식 : 배, 바나나", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
      });
 
