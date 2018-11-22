@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".util.SetGPS"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btnLocationChagne"
+        <ToggleButton
+            android:id="@+id/tgLocationChagne"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="내 현재 위치" />
+            android:textOff="현재 위치 불러오기"
+            android:textOn="현재 위치 불러오는 중..." />
 
         <TextView
             android:layout_width="match_parent"
@@ -27,13 +24,11 @@
             android:gravity="center"
             />
 
-        <ListView
+        <TextView
+            android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"   >
-
-        </ListView>
-
-    </LinearLayout>
-
-</ScrollView>
+            android:layout_weight="1"
+            android:text="뷁뛣"
+            />
+   </LinearLayout>

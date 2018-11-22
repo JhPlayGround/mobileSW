@@ -1,11 +1,7 @@
 package com.example.helloworld.myapplication.weather;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.FragmentManager;
-
-import com.example.helloworld.myapplication.activity.MainActivity;
 import com.example.helloworld.myapplication.fragment.ClothesFragment;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -70,7 +66,7 @@ public class ForeCastManager extends Thread{
                     city = parser.nextText();
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("city",city);
+                     bundle.putString("city",city);
                     //ClothesFragment에 접근하기 위해 ClothesFragment mContext 사용
                     mContext.setArguments(bundle);
 

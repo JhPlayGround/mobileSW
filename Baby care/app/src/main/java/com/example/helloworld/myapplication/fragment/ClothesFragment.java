@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +49,10 @@ public class ClothesFragment extends Fragment {
     SimpleDateFormat mFormat = new SimpleDateFormat("dd hh");
     String nTime;
 
-    String lon = "128.3910799"; // 좌표 설정
-    String lat = "36.1444292";  // 좌표 설정
+    String longitude;
+    String latitude;
+    String lon = "96"; // 경도 설정
+    String lat = "32";  // 위도 설정
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
     ClothesFragment mThis;
@@ -87,6 +90,7 @@ public class ClothesFragment extends Fragment {
         tvClothesData = (TextView)view.findViewById(R.id.tvClothesData);
 
         Button btnSetGPS = (Button)view.findViewById(R.id.btnSetGPS);
+        Button btnrefresh = (Button)view.findViewById(R.id.btnrefresh);
         //SetGPS 이동
         btnSetGPS.setOnClickListener(new View.OnClickListener()
         {
@@ -94,7 +98,23 @@ public class ClothesFragment extends Fragment {
             public void onClick(View v){
                 Intent intent = new Intent(getContext(), SetGPS.class);
                 startActivity(intent);
+
             }
+        });
+
+        btnrefresh.setOnClickListener(new View.OnClickListener() {
+    @Override
+        public void onClick(View v) {
+            Bundle gps = getArguments();
+            if (gps != null) {
+                lon = gps.getString("lon");
+                } else
+                    lon = "85";
+            if (gps != null) {
+                lat = gps.getString("lat");
+                } else
+                    lat = "102";
+                }
         });
 
         Initialize();
@@ -102,8 +122,10 @@ public class ClothesFragment extends Fragment {
 
         return view;
     }
+
     //초기화
     public void Initialize() {
+
         mWeatherInfomation = new ArrayList<>();
         mThis = this;
         mForeCast = new ForeCastManager(lon, lat, mThis);
@@ -124,6 +146,7 @@ public class ClothesFragment extends Fragment {
     //지역 출력 메소드
     public String LocalPrint(){
         String LocalData = "";
+
         Bundle bundle = getArguments();
         if(bundle != null )
         {
