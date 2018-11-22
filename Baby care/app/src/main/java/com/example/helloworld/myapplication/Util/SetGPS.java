@@ -101,7 +101,7 @@ public class SetGPS extends Activity {
         });
     } // end of onCreate
 
-    private  LocationListener mLocationListener = new LocationListener() {
+    public   LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             //여기서 위치값이 갱신되면 이벤트가 발생한다.
             //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.

@@ -65,10 +65,10 @@ public class ForeCastManager extends Thread{
                 if(parserEvent == XmlPullParser.START_TAG  && parser.getName().equals("name")) {
                     city = parser.nextText();
 
-                    Bundle bundle = new Bundle();
-                     bundle.putString("city",city);
+                    Bundle local = new Bundle();
+                     local.putString("city",city);
                     //ClothesFragment에 접근하기 위해 ClothesFragment mContext 사용
-                    mContext.setArguments(bundle);
+                    mContext.setArguments(local);
 
                 }
                 if(parserEvent == XmlPullParser.START_TAG  && parser.getName().equals("time")){

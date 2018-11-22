@@ -2,30 +2,31 @@ package com.example.helloworld.myapplication.fragment;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
-import com.example.helloworld.myapplication.util.SetGPS;
 import com.example.helloworld.myapplication.weather.ForeCastManager;
 import com.example.helloworld.myapplication.weather.WeatherInfo;
 import com.example.helloworld.myapplication.weather.WeatherToHangeul;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,12 +43,21 @@ public class ClothesFragment extends Fragment {
     TextView tvClothesData;
     String city;
     TextView tvDustData;
+    ToggleButton btnSetGPS;
 
     //날짜 변수
     long mNow;
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("dd hh");
     String nTime;
+
+    String Slat;
+    String Slon;
+
+    //위치정보를 공급하는 근원
+    String locationProvider;
+    //위치 정보 매니져 객체
+    LocationManager locationManager;
 
     String longitude;
     String latitude;
@@ -89,32 +99,49 @@ public class ClothesFragment extends Fragment {
 
         tvClothesData = (TextView)view.findViewById(R.id.tvClothesData);
 
-        Button btnSetGPS = (Button)view.findViewById(R.id.btnSetGPS);
+        final ToggleButton btnSetGPS = (ToggleButton) view.findViewById(R.id.btnSetGPS);
         Button btnrefresh = (Button)view.findViewById(R.id.btnrefresh);
         //SetGPS 이동
-        btnSetGPS.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getContext(), SetGPS.class);
-                startActivity(intent);
 
-            }
-        });
+
+                // LocationManager 객체를 얻어온다
+                final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+                btnSetGPS.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try{
+                            if(btnSetGPS.isChecked()){
+                                Toast.makeText(getContext(),"위치정보 수신중 . . .",Toast.LENGTH_SHORT).show();
+                                // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
+                                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
+                                        1000, // 통지사이의 최소 시간간격 (miliSecond)
+                                        0, // 통지사이의 최소 변경거리 (m)
+                                        mLocationListener);
+                                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
+                                        1000, // 통지사이의 최소 시간간격 (miliSecond)
+                                        0, // 통지사이의 최소 변경거리 (m)
+                                        mLocationListener);
+
+                            }else{
+                                Toast.makeText(getContext(),"위치정보 미수신",Toast.LENGTH_SHORT).show();
+                                lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+                            }
+                        }catch(SecurityException ex){
+                        }
+                    }
+                });
 
         btnrefresh.setOnClickListener(new View.OnClickListener() {
     @Override
         public void onClick(View v) {
-            Bundle gps = getArguments();
-            if (gps != null) {
-                lon = gps.getString("lon");
-                } else
-                    lon = "85";
-            if (gps != null) {
-                lat = gps.getString("lat");
-                } else
-                    lat = "102";
-                }
+        lon = Slon;
+        lat = Slat;
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(mThis).attach(mThis).commit();
+
+    }
         });
 
         Initialize();
@@ -256,4 +283,64 @@ public class ClothesFragment extends Fragment {
             }
         }
     };
+
+    // Location 제공자에서 정보를 얻어오기(GPS)
+    // 1. Location을 사용하기 위한 권한을 얻어와야한다 AndroidManifest.xml
+    //     ACCESS_FINE_LOCATION : NETWORK_PROVIDER, GPS_PROVIDER
+    //     ACCESS_COARSE_LOCATION : NETWORK_PROVIDER
+    // 2. LocationManager 를 통해서 원하는 제공자의 리스너 등록
+    // 3. GPS 는 에뮬레이터에서는 기본적으로 동작하지 않는다
+    // 4. 실내에서는 GPS_PROVIDER 를 요청해도 응답이 없다.  특별한 처리를 안하면 아무리 시간이 지나도
+    //    응답이 없다.
+    //    해결방법은
+    //     ① 타이머를 설정하여 GPS_PROVIDER 에서 일정시간 응답이 없는 경우 NETWORK_PROVIDER로 전환
+    //     ② 혹은, 둘다 한꺼번헤 호출하여 들어오는 값을 사용하는 방식.
+
+    private LocationListener mLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            //여기서 위치값이 갱신되면 이벤트가 발생한다.
+            //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
+
+            Log.d("test", "onLocationChanged, location:" + location);
+            double lon = location.getLongitude(); //경도
+            double lat = location.getLatitude();   //위도
+            double altitude = location.getAltitude();   //고도
+            float accuracy = location.getAccuracy();    //정확도
+            String provider = location.getProvider();   //위치제공자
+
+            Toast.makeText(getContext(),"위치 정보를 받았습니다.",Toast.LENGTH_SHORT);
+
+            Slat = String.valueOf(lat);
+            Slon = String.valueOf(lon);
+
+            //tv.setText("위치정보 : " + provider + "\n위도 : " + Slon + "\n경도 : " + Slat
+              //      + "\n고도 : " + altitude + "\n정확도 : "  + accuracy);
+
+            //Fragment fragment = new ClothesFragment();
+            //Bundle gps = new Bundle();
+            //gps.putString("lon",Slon);
+            //gps.putString("lat",Slat);
+            //ClothesFragment에 접근하기 위해 ClothesFragment mContext 사용
+            //fragment.setArguments(gps);
+
+
+
+        }
+
+        public void onProviderDisabled(String provider) {
+            // Disabled시
+            Log.d("test", "onProviderDisabled, provider:" + provider);
+        }
+
+        public void onProviderEnabled(String provider) {
+            // Enabled시
+            Log.d("test", "onProviderEnabled, provider:" + provider);
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            // 변경시
+            Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
+        }
+    };
+
 }
