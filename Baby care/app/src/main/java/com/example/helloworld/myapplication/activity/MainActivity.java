@@ -1,5 +1,6 @@
 package com.example.helloworld.myapplication.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import com.example.helloworld.myapplication.util.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    //로그인 정보
     public static int LOGINRECORD = 1;
 
     BoardFragment fmBoard;

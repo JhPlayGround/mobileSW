@@ -1,7 +1,9 @@
 package com.example.helloworld.myapplication.fragment;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -36,39 +39,41 @@ public class ClothesFragment extends Fragment {
     public static final int THREAD_HANDLER_SUCCESS_INFO = 1;
     MainActivity activity;
     ForeCastManager mForeCast;
+
     TextView tvLocal;
     TextView tvTemp;
     TextView tvCloud;
     ImageView ivCloud;
     TextView tvClothesData;
-    String city;
     TextView tvDustData;
-    ToggleButton btnSetGPS;
+    Button btnSetGPS;
 
     //날짜 변수
     long mNow;
     Date mDate;
-    SimpleDateFormat mFormat = new SimpleDateFormat("dd hh");
+    SimpleDateFormat mFormat = new SimpleDateFormat("dd HH");
     String nTime;
 
+    //설정할 GPS
     String Slat;
     String Slon;
+    //자신의 위치 받기
+    String city;
 
     //위치정보를 공급하는 근원
     String locationProvider;
     //위치 정보 매니져 객체
     LocationManager locationManager;
 
-    String longitude;
-    String latitude;
-    String lon = "96"; // 경도 설정
-    String lat = "32";  // 위도 설정
+    //기본 GPS설정
+    String lon = "126"; // 경도 설정
+    String lat = "37";  // 위도 설정
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
     ClothesFragment mThis;
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
 
         activity = (MainActivity) getActivity();
@@ -84,64 +89,65 @@ public class ClothesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_clothes,mainFragmentLayout,false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.main_clothes, mainFragmentLayout, false);
 
         //지역
         tvLocal = (TextView) view.findViewById(R.id.tvLocal);
         //온도
-        tvTemp = (TextView)view.findViewById(R.id.tvTemp);
+        tvTemp = (TextView) view.findViewById(R.id.tvTemp);
         //구름량
-        tvCloud = (TextView)view.findViewById(R.id.tvCloud);
+        tvCloud = (TextView) view.findViewById(R.id.tvCloud);
         //구름 이미지
-        ivCloud = (ImageView)view.findViewById(R.id.ivCloud);
+        ivCloud = (ImageView) view.findViewById(R.id.ivCloud);
         //미세먼지
-        tvDustData = (TextView)view.findViewById(R.id.tvDustData);
+        tvDustData = (TextView) view.findViewById(R.id.tvDustData);
 
-        tvClothesData = (TextView)view.findViewById(R.id.tvClothesData);
+        tvClothesData = (TextView) view.findViewById(R.id.tvClothesData);
 
-        final ToggleButton btnSetGPS = (ToggleButton) view.findViewById(R.id.btnSetGPS);
-        Button btnrefresh = (Button)view.findViewById(R.id.btnrefresh);
-        //SetGPS 이동
+        btnSetGPS = (Button) view.findViewById(R.id.btnSetGPS);
 
+        // LocationManager 객체를 얻어온다
+        final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-                // LocationManager 객체를 얻어온다
-                final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //자신의 위치 GPS 값 받기
+        btnSetGPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "위치정보 수신중 . . .\nGPS를 사용해주시고\n 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+                // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
+                        1000, // 통지사이의 최소 시간간격 (miliSecond)
+                        0, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
+                        1000, // 통지사이의 최소 시간간격 (miliSecond)
+                        0, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
 
-                btnSetGPS.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try{
-                            if(btnSetGPS.isChecked()){
-                                Toast.makeText(getContext(),"위치정보 수신중 . . .",Toast.LENGTH_SHORT).show();
-                                // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
-                                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
-                                        1000, // 통지사이의 최소 시간간격 (miliSecond)
-                                        0, // 통지사이의 최소 변경거리 (m)
-                                        mLocationListener);
-                                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
-                                        1000, // 통지사이의 최소 시간간격 (miliSecond)
-                                        0, // 통지사이의 최소 변경거리 (m)
-                                        mLocationListener);
+                //위치정보 받을 대기시간
+                Handler mHandler = new Handler();
+                mHandler.postDelayed(new Runnable()  {
+                    public void run() {
 
-                            }else{
-                                Toast.makeText(getContext(),"위치정보 미수신",Toast.LENGTH_SHORT).show();
-                                lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
-                            }
-                        }catch(SecurityException ex){
-                        }
+                        Toast.makeText(getContext(),"위치 정보를 갱신하였습니다.",Toast.LENGTH_SHORT).show();
+
+                        lon = Slon;
+                        lat = Slat;
+
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(mThis).attach(mThis).commit();
+
+                        lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+
                     }
-                });
+                }, 15000);
 
-        btnrefresh.setOnClickListener(new View.OnClickListener() {
-    @Override
-        public void onClick(View v) {
-        lon = Slon;
-        lat = Slat;
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(mThis).attach(mThis).commit();
-
-    }
+            }
         });
 
         Initialize();
@@ -284,46 +290,18 @@ public class ClothesFragment extends Fragment {
         }
     };
 
-    // Location 제공자에서 정보를 얻어오기(GPS)
-    // 1. Location을 사용하기 위한 권한을 얻어와야한다 AndroidManifest.xml
-    //     ACCESS_FINE_LOCATION : NETWORK_PROVIDER, GPS_PROVIDER
-    //     ACCESS_COARSE_LOCATION : NETWORK_PROVIDER
-    // 2. LocationManager 를 통해서 원하는 제공자의 리스너 등록
-    // 3. GPS 는 에뮬레이터에서는 기본적으로 동작하지 않는다
-    // 4. 실내에서는 GPS_PROVIDER 를 요청해도 응답이 없다.  특별한 처리를 안하면 아무리 시간이 지나도
-    //    응답이 없다.
-    //    해결방법은
-    //     ① 타이머를 설정하여 GPS_PROVIDER 에서 일정시간 응답이 없는 경우 NETWORK_PROVIDER로 전환
-    //     ② 혹은, 둘다 한꺼번헤 호출하여 들어오는 값을 사용하는 방식.
-
+    //GPS 값 전달
     private LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             //여기서 위치값이 갱신되면 이벤트가 발생한다.
             //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
 
             Log.d("test", "onLocationChanged, location:" + location);
-            double lon = location.getLongitude(); //경도
-            double lat = location.getLatitude();   //위도
-            double altitude = location.getAltitude();   //고도
-            float accuracy = location.getAccuracy();    //정확도
-            String provider = location.getProvider();   //위치제공자
+            double updateLon = location.getLongitude(); //경도
+            double updateLat = location.getLatitude();   //위도
 
-            Toast.makeText(getContext(),"위치 정보를 받았습니다.",Toast.LENGTH_SHORT);
-
-            Slat = String.valueOf(lat);
-            Slon = String.valueOf(lon);
-
-            //tv.setText("위치정보 : " + provider + "\n위도 : " + Slon + "\n경도 : " + Slat
-              //      + "\n고도 : " + altitude + "\n정확도 : "  + accuracy);
-
-            //Fragment fragment = new ClothesFragment();
-            //Bundle gps = new Bundle();
-            //gps.putString("lon",Slon);
-            //gps.putString("lat",Slat);
-            //ClothesFragment에 접근하기 위해 ClothesFragment mContext 사용
-            //fragment.setArguments(gps);
-
-
+            Slat = String.valueOf(updateLat);
+            Slon = String.valueOf(updateLon);
 
         }
 
