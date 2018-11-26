@@ -1,7 +1,9 @@
 package com.example.helloworld.myapplication.util;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         ImageView imgSignUp = (ImageView)findViewById(R.id.imgRegist);
         ImageView imgSignEnd = (ImageView)findViewById(R.id.imgCancel);
         ImageView imgSignout = (ImageView)findViewById(R.id.imgNo);
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+
+
 
         //로그인 시작
         ImageView imgSignIn = (ImageView)findViewById(R.id.imgOk);
@@ -70,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     void login() {
         try {
             httpclient = new DefaultHttpClient();
-            httppost = new HttpPost("http://192.168.1.43/login.php");
+            httppost = new HttpPost("http://otl9882.codns.com:443/login.php");
             nameValuePairs = new ArrayList<NameValuePair>(2);
 
             EditText inputID = (EditText)findViewById(R.id.etID);
@@ -89,23 +94,23 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"Response from PHP : " + response,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this,"Response from PHP : " + response,Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
 
-            if (response.equalsIgnoreCase("User Found")) {
+            if (response.equalsIgnoreCase("로그인 성공!")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "어서오세요!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 startActivity((new Intent(LoginActivity.this, MainActivity.class)));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)
