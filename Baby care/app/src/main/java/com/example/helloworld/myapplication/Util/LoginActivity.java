@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     void login() {
         try {
             httpclient = new DefaultHttpClient();
-            httppost = new HttpPost("http://192.168.1.48/login.php");
+            httppost = new HttpPost("http://192.168.1.43/login.php");
             nameValuePairs = new ArrayList<NameValuePair>(2);
 
             EditText inputID = (EditText)findViewById(R.id.etID);

@@ -26,7 +26,7 @@ import com.example.helloworld.myapplication.util.LoginActivity;
 public class MainActivity extends AppCompatActivity {
 
     //로그인 정보
-    public static int LOGINRECORD = 1;
+    public static int LOGINRECORD = 0;
 
     BoardFragment fmBoard;
     ClothesFragment fmClothes;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            //로그인 기록 정보 확인
+            //로그인 기록 정보 확인(비회원)
             if(LOGINRECORD==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
