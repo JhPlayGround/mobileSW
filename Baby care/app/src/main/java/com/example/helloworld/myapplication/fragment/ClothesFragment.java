@@ -1,6 +1,7 @@
 package com.example.helloworld.myapplication.fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,8 @@ import com.example.helloworld.myapplication.weather.WeatherToHangeul;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class ClothesFragment extends Fragment {
     public static final int THREAD_HANDLER_SUCCESS_INFO = 1;
@@ -107,6 +110,7 @@ public class ClothesFragment extends Fragment {
 
         btnSetGPS = (Button) view.findViewById(R.id.btnSetGPS);
         Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        Button btnInformation = (Button) view.findViewById(R.id.btnInformation);
 
         // LocationManager 객체를 얻어온다
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -152,6 +156,7 @@ public class ClothesFragment extends Fragment {
             }
         });
 
+        //로그아웃 버튼
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +168,23 @@ public class ClothesFragment extends Fragment {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
+            }
+        });
+
+        //앱 정보 버튼
+        btnInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context mContext = getContext();
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.activity_information, (ViewGroup) v.findViewById(R.id.popup));
+                AlertDialog.Builder aDialog = new AlertDialog.Builder(getContext());
+
+                aDialog.setTitle("개월 수 별 먹어도 되는 음식들");
+                aDialog.setView(layout);
+
+                AlertDialog ad = aDialog.create();
+                ad.show();
             }
         });
 
