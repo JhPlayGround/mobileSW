@@ -94,12 +94,12 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"로그인에 " + response,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"" + response,Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
 
-            if (response.equalsIgnoreCase("User found")) {
+            if (response.equalsIgnoreCase("로그인 성공!")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -123,18 +123,21 @@ public class LoginActivity extends AppCompatActivity {
     public void signUp(View view)
     {
         Intent intent = new Intent(this, RegistActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
     public void signEnd(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
     public void signNo(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

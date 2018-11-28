@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +59,10 @@ public class ClothesFragment extends Fragment {
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("dd HH");
     String nTime;
+    String day;
+    String time;
+    //현재 시간의 i 값
+    int ni = 1;
 
     //설정할 GPS
     String Slat;
@@ -70,8 +76,8 @@ public class ClothesFragment extends Fragment {
     LocationManager locationManager;
 
     //기본 GPS설정
-    String lon = "126"; // 경도 설정
-    String lat = "37";  // 위도 설정
+    String lon = "2.212195"; // 경도 설정
+    String lat = "46.632954";  // 위도 설정
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
     ClothesFragment mThis;
@@ -119,16 +125,22 @@ public class ClothesFragment extends Fragment {
         btnSetGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "위치정보 수신중 . . .", Toast.LENGTH_SHORT).show();
+                if ( Build.VERSION.SDK_INT >= 23 &&
+                        ContextCompat.checkSelfPermission( getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(
+                                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED){
+                    return;
+                }
+
                 // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
-                        1000, // 통지사이의 최소 시간간격 (miliSecond)
-                        0, // 통지사이의 최소 변경거리 (m)
-                        mLocationListener);
+
+                Toast.makeText(getContext(),"위치 정보를 받는 중입니다.",Toast.LENGTH_SHORT).show();
+
                 lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
                         1000, // 통지사이의 최소 시간간격 (miliSecond)
                         0, // 통지사이의 최소 변경거리 (m)
@@ -150,9 +162,7 @@ public class ClothesFragment extends Fragment {
                         lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
 
                     }
-                }, 15000);
-
-
+                }, 10000);
             }
         });
 
@@ -162,7 +172,7 @@ public class ClothesFragment extends Fragment {
             public void onClick(View v) {
                 if(MainActivity.LOGINRECORD == 1)
                 {
-                    Toast.makeText(getActivity(), "로그이아웃이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "로그아웃이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     MainActivity.LOGINRECORD = 0;
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -177,10 +187,10 @@ public class ClothesFragment extends Fragment {
             public void onClick(View v) {
                 Context mContext = getContext();
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.activity_information, (ViewGroup) v.findViewById(R.id.popup));
+                View layout = inflater.inflate(R.layout.activity_information, (ViewGroup) v.findViewById(R.id.Information));
                 AlertDialog.Builder aDialog = new AlertDialog.Builder(getContext());
 
-                aDialog.setTitle("개월 수 별 먹어도 되는 음식들");
+                aDialog.setTitle("오픈소스 라이선스");
                 aDialog.setView(layout);
 
                 AlertDialog ad = aDialog.create();
@@ -188,7 +198,9 @@ public class ClothesFragment extends Fragment {
             }
         });
 
+        //초기화 메소드
         Initialize();
+        //시간 받는 메소드
         getTime();
 
         return view;
@@ -208,11 +220,11 @@ public class ClothesFragment extends Fragment {
         mDate = new Date(mNow);
         nTime = mFormat.format(mDate);
 
+        day = nTime.split(" ")[0];
+        time = nTime.split(" ")[1];
+
         tvDustData.setText(nTime);
-      //  if(nTime.equals(mWeatherInfomation.get(1).getWeather_Day_Go()))
-       // for(int i=0; i < mWeatherInfomation.size(); i++)
-        //{
-        //}
+
     }
     //지역 출력 메소드
     public String LocalPrint(){
@@ -232,14 +244,16 @@ public class ClothesFragment extends Fragment {
     //온도 출력 메소드
     public String TempPrint(){
         String TempData = "";
-        TempData =  "최대 기온 : " + mWeatherInfomation.get(1).getTemp_Max() + "\n"+
-                    "최저 기온 : " + mWeatherInfomation.get(1).getTemp_Min();
+        TempData =  "최대 기온 : " + mWeatherInfomation.get(ni).getTemp_Max() + "\n"+
+                    "최저 기온 : " + mWeatherInfomation.get(ni).getTemp_Min();
         return TempData;
     }
     //구름량 출력 메소드
     public String CloudPrint(){
         String CloudData = "";
-        CloudData =  mWeatherInfomation.get(1).getClouds_Value() + "%";
+
+        CloudData =   mWeatherInfomation.get(ni).getWeather_Name();
+
         return CloudData;
     }
 
@@ -249,7 +263,6 @@ public class ClothesFragment extends Fragment {
             mData = mData + mWeatherInfomation.get(i).getWeather_Day_Go() + "\r\n"
                     + mWeatherInfomation.get(i).getWeather_Day_End() + "\r\n"
                     + mWeatherInfomation.get(i).getWeather_Name() + "\r\n"
-                    + mWeatherInfomation.get(i).getClouds_Sort() + "\r\n"
                     + "구름 양 : " + mWeatherInfomation.get(i).getClouds_Value()
                     + mWeatherInfomation.get(i).getClouds_Per() + "\r\n"
                     + mWeatherInfomation.get(i).getWind_Name() + "\r\n"
@@ -257,13 +270,108 @@ public class ClothesFragment extends Fragment {
                     + "최대 기온 : " + mWeatherInfomation.get(i).getTemp_Max() + "℃" + "\r\n"
                     + "최저 기온: " + mWeatherInfomation.get(i).getTemp_Min() + "℃" + "\r\n"
                     + "습도: " + mWeatherInfomation.get(i).getHumidity() + "%" + "\r\n"
-                    + "지역: " + city;
-            ;
-                    //+ "i의 크기 : " + mWeatherInfomation.get(i).getCity();
+                    + "지역: " + city
+                    + "i의 크기 : " + i ;
 
             mData = mData + "\r\n" + "----------------------------------------------" + "\r\n";
         }
         return mData;
+    }
+
+    public String Now(){
+        String now = "";
+        //오늘 요일
+        String nday = "";
+        //오늘 시간
+        String ntime0 = "";
+        String ntime1 = "";
+        String ntime2 = "";
+        int ntime3 = 0;
+        int ntime4 = 0;
+        int a = 0;
+        int b = 0;
+
+        for(int i =0; i <mWeatherInfomation.size(); i++){
+            //now = 요일이 나온다.
+            ntime0 = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[0];
+            nday = ntime0.split("-")[2];
+            ntime1 = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[1];
+            ntime2 = ntime1.split(":")[0];
+            ntime3 = Integer.parseInt(ntime2);
+            ntime4 = Integer.parseInt(time);
+
+            if(nday.contains(day) && b == 0)
+            {
+                //i값마다 nday가 하나씩 증가
+                //now = now + mWeatherInfomation.get(i).getWeather_Day_End() + "\r\n";
+
+                a = 1;
+
+                //now = now + "\r\n" + "----------------------------------------------" + "\r\n";
+            }
+            //0,1,2 - 3,4,5 - 6,7,8 - 9,10,11 - 12,13,14 - 15,16,17 - 18,19,20 - 21,22,23
+            //0~3시
+            if(ntime4 >= 0 && ntime3 == 3 && a == 1 && ntime4 <= ntime3)
+            {
+                //현재의 i 값을 ni에 저장
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+            //3~6시
+            else if(ntime4 >= 3 && ntime3 == 6 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+            //6~9시
+            else if(ntime4 >= 6 && ntime3 == 9 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b = 1;
+            }
+            //9~12시
+            else if(ntime4 >= 9 && ntime3 == 12 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+            //12~15시
+            else if(ntime4 >= 12 && ntime3 == 15 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+            //15~18시
+            else if(ntime4 >= 15 && ntime3 == 18 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b = 1;
+            }
+            //18~21시
+            else if(ntime4 >= 18 && ntime3 == 21 && a == 1 && ntime4 <= ntime3)
+            {
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+            //21~24시
+            else if(ntime4 >= 21 && ntime3 == 0 && a == 1)
+            {
+                ni = i;
+                a = 0;
+                b =  1;
+            }
+
+
+        }
+        now =  now + mWeatherInfomation.get(ni).getWeather_Day_End() + "\r\n";
+        return now;
     }
 
     public void DataChangedToHangeul() {
@@ -307,20 +415,35 @@ public class ClothesFragment extends Fragment {
                     String localData = "";
                     String tempData = "";
                     String cloudData = "";
-                    String print="";
+                    String now="";
 
                     DataChangedToHangeul();
 
                     localData = localData + LocalPrint();
                     tempData = tempData + TempPrint();
                     cloudData = cloudData + CloudPrint();
-                    print = print + PrintValue();
+                    now = now + Now();
 
                     tvLocal.setText(localData);
                     tvTemp.setText(tempData);
                     tvCloud.setText(cloudData);
-                    tvClothesData.setText(print);
+                    tvClothesData.setText(now);
 
+                    if(cloudData.contains("하늘")) {
+                        ivCloud.setImageResource(R.drawable.sun);
+                    }else if(cloudData.contains("비") || !cloudData.contains("번개")){
+                        ivCloud.setImageResource(R.drawable.rain);
+                    }else if(cloudData.contains("소나기")) {
+                        ivCloud.setImageResource(R.drawable.rain);
+                    }else if(cloudData.contains("흐림")) {
+                        ivCloud.setImageResource(R.drawable.cloud);
+                    }else if(cloudData.contains("번개") || cloudData.contains("천둥")) {
+                        ivCloud.setImageResource(R.drawable.flash);
+                    }else if(cloudData.contains("눈")) {
+                        ivCloud.setImageResource(R.drawable.snow);
+                    }else{
+                        ivCloud.setImageResource(R.drawable.questionsign);
+                    }
                     break;
                 default:
                     break;
@@ -334,7 +457,6 @@ public class ClothesFragment extends Fragment {
             //여기서 위치값이 갱신되면 이벤트가 발생한다.
             //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
 
-            Log.d("test", "onLocationChanged, location:" + location);
             double updateLon = location.getLongitude(); //경도
             double updateLat = location.getLatitude();   //위도
 
@@ -343,16 +465,17 @@ public class ClothesFragment extends Fragment {
 
         }
 
-        public void onProviderDisabled(String provider) {
-            checkProvider(provider);
+        public void onStatusChanged(String provider, int i, Bundle bundle) {
+            alterStatus(provider);
         }
 
         public void onProviderEnabled(String provider) {
             alterProvider(provider);
         }
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            alterStatus(provider);
+
+        public void onProviderDisabled(String provider) {
+            checkProvider(provider);
         }
     };
 
