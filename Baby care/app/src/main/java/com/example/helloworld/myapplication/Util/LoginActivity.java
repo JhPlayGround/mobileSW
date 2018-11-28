@@ -94,16 +94,16 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //Toast.makeText(LoginActivity.this,"Response from PHP : " + response,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"로그인에 " + response,Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
 
-            if (response.equalsIgnoreCase("로그인 성공!")) {
+            if (response.equalsIgnoreCase("User found")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this, "어서오세요!", Toast.LENGTH_SHORT).show();
+                        MainActivity.LOGINRECORD = 1;
                     }
                 });
 

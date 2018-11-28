@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
@@ -28,7 +29,6 @@
         <activity android:name=".util.RegistActivity" />
         <activity android:name=".activity.CancelActivity" />
         <activity android:name=".util.RegistByeActivity" />
-        <activity android:name=".util.SetGPS" />
         <activity android:name=".util.PopUpActivity" ></activity>
     </application>
 

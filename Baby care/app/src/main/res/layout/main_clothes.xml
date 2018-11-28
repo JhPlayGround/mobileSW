@@ -7,25 +7,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25"
-        android:background="@drawable/shape_list"
-        >
-
+        android:layout_weight="0.3"
+        android:background="@drawable/shape_list"   >
         <Button
             android:id="@+id/btnSetGPS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="현재 위치정보 불러오기"
-            android:layout_gravity="center"/>
+            android:background="@drawable/shape_button"
+
+            />
         <Button
             android:id="@+id/btnLogout"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그아웃"
-            android:layout_gravity="center"/>
-
+            android:background="@drawable/shape_button" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"     />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,21 +44,21 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:src="@drawable/registbutton"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center"     />
 
-
-                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
+                    android:background="@drawable/shape_box"
                     >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="현재 지역"
+                            android:layout_gravity="center"
                             />
                         <TextView
                             android:id="@+id/tvLocal"
@@ -66,17 +70,25 @@
                             />
                 </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
+                    android:background="@drawable/shape_box"
+
                     >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="현재 온도"
+                            android:layout_gravity="center"
                             />
                         <TextView
                             android:id="@+id/tvTemp"
@@ -88,17 +100,25 @@
                             />
                 </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
+                    android:background="@drawable/shape_box"
+
                     >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="현재 구름양"
+                            android:layout_gravity="center"
                             />
                         <TextView
                             android:id="@+id/tvCloud"
@@ -112,29 +132,49 @@
 
         </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"     />
 
-        <TextView
-            android:id="@+id/tvDustData"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
+            android:orientation="vertical"
+            android:background="@drawable/shape_box"
+            >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="현재 미세먼지"
-            android:background="@drawable/shape_list"
-        />
+            android:gravity="center"    />
 
-        <ScrollView
+        <TextView
+           android:id="@+id/tvDustData"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="0"
+           android:gravity="center"    />
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"     />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
-            >
+            android:background="@drawable/shape_box"    >
                 <TextView
                     android:id="@+id/tvClothesData"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="현재 옷차림 추천"
-                    android:background="@drawable/shape_list"
-                    />
-        </ScrollView>
+                    android:text="현재 옷차림 추천"    />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

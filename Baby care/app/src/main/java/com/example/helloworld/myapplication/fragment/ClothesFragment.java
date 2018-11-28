@@ -3,6 +3,7 @@ package com.example.helloworld.myapplication.fragment;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -23,7 +25,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
@@ -105,6 +106,7 @@ public class ClothesFragment extends Fragment {
         tvClothesData = (TextView) view.findViewById(R.id.tvClothesData);
 
         btnSetGPS = (Button) view.findViewById(R.id.btnSetGPS);
+        Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
 
         // LocationManager 객체를 얻어온다
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -113,7 +115,7 @@ public class ClothesFragment extends Fragment {
         btnSetGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "위치정보 수신중 . . .\nGPS를 사용해주시고\n 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "위치정보 수신중 . . .", Toast.LENGTH_SHORT).show();
                 // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -147,6 +149,20 @@ public class ClothesFragment extends Fragment {
                 }, 15000);
 
 
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MainActivity.LOGINRECORD == 1)
+                {
+                    Toast.makeText(getActivity(), "로그이아웃이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    MainActivity.LOGINRECORD = 0;
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -306,19 +322,33 @@ public class ClothesFragment extends Fragment {
         }
 
         public void onProviderDisabled(String provider) {
-            // Disabled시
-            Log.d("test", "onProviderDisabled, provider:" + provider);
+            checkProvider(provider);
         }
 
         public void onProviderEnabled(String provider) {
-            // Enabled시
-            Log.d("test", "onProviderEnabled, provider:" + provider);
+            alterProvider(provider);
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            // 변경시
-            Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
+            alterStatus(provider);
         }
     };
+
+    public void checkProvider(String provider){
+        Toast.makeText(getContext(),provider + "를 켜주세요.",Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+    }
+
+    public void alterProvider(String provider)
+    {
+        Toast.makeText(getContext(),provider + "가 켜졌습니다.",Toast.LENGTH_SHORT).show();
+    }
+
+    public void alterStatus(String provider)
+    {
+        Toast.makeText(getContext(),"위치서비스가 "+provider+"로 변경되었습니다.",Toast.LENGTH_SHORT).show();
+    }
 
 }

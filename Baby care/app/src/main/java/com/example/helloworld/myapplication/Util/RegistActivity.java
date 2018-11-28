@@ -116,6 +116,9 @@ public class RegistActivity extends AppCompatActivity {
         }
         InsertData task = new InsertData();
         task.execute(Id, Pw, Head, Height, Month, Weight);
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void signNo(View view)

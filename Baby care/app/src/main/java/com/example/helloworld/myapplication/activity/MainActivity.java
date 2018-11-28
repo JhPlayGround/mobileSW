@@ -25,8 +25,7 @@ import com.example.helloworld.myapplication.util.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    //로그인 정보
-    public static int LOGINRECORD = 0;
+    public static int LOGINRECORD = 1;
 
     BoardFragment fmBoard;
     ClothesFragment fmClothes;
@@ -39,23 +38,28 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             //로그인 기록 정보 확인(비회원)
             if(LOGINRECORD==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
                         Intent login1 = new Intent(getApplicationContext(), LoginActivity.class);
+                        login1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login1);
                         return true;
                     case R.id.navigation_daily:
                         Intent login2 = new Intent(getApplicationContext(), LoginActivity.class);
+                        login2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login2);
                         return true;
                     case R.id.navigation_compare:
                         Intent login3 = new Intent(getApplicationContext(), LoginActivity.class);
+                        login3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login3);
                         return true;
                     case R.id.navigation_board:
                         Intent login4 = new Intent(getApplicationContext(), LoginActivity.class);
+                        login4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login4);
                         return true;
                 }
