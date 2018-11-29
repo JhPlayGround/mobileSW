@@ -76,8 +76,8 @@ public class ClothesFragment extends Fragment {
     LocationManager locationManager;
 
     //기본 GPS설정
-    String lon = "2.212195"; // 경도 설정
-    String lat = "46.632954";  // 위도 설정
+    String lon = "126.972460"; // 경도 설정
+    String lat = "37.553176";  // 위도 설정
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
     ClothesFragment mThis;
@@ -283,22 +283,24 @@ public class ClothesFragment extends Fragment {
         //오늘 요일
         String nday = "";
         //오늘 시간
-        String ntime0 = "";
+        String temp = "";
         String ntime1 = "";
         String ntime2 = "";
-        int ntime3 = 0;
-        int ntime4 = 0;
+        int ptime = 0;
+        int ntime = 0;
         int a = 0;
         int b = 0;
 
         for(int i =0; i <mWeatherInfomation.size(); i++){
             //now = 요일이 나온다.
-            ntime0 = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[0];
-            nday = ntime0.split("-")[2];
+            temp = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[0];
+            nday = temp.split("-")[2];
             ntime1 = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[1];
             ntime2 = ntime1.split(":")[0];
-            ntime3 = Integer.parseInt(ntime2);
-            ntime4 = Integer.parseInt(time);
+            //파싱 time
+            ptime = Integer.parseInt(ntime2);
+            //현재 time
+            ntime = Integer.parseInt(time);
 
             if(nday.contains(day) && b == 0)
             {
@@ -311,7 +313,7 @@ public class ClothesFragment extends Fragment {
             }
             //0,1,2 - 3,4,5 - 6,7,8 - 9,10,11 - 12,13,14 - 15,16,17 - 18,19,20 - 21,22,23
             //0~3시
-            if(ntime4 >= 0 && ntime3 == 3 && a == 1 && ntime4 <= ntime3)
+            if(ntime >= 0 && ptime == 3 && a == 1 && ntime <= ptime)
             {
                 //현재의 i 값을 ni에 저장
                 ni = i;
@@ -319,49 +321,49 @@ public class ClothesFragment extends Fragment {
                 b =  1;
             }
             //3~6시
-            else if(ntime4 >= 3 && ntime3 == 6 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 3 && ptime == 6 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b =  1;
             }
             //6~9시
-            else if(ntime4 >= 6 && ntime3 == 9 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 6 && ptime == 9 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b = 1;
             }
             //9~12시
-            else if(ntime4 >= 9 && ntime3 == 12 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 9 && ptime == 12 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b =  1;
             }
             //12~15시
-            else if(ntime4 >= 12 && ntime3 == 15 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 12 && ptime == 15 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b =  1;
             }
             //15~18시
-            else if(ntime4 >= 15 && ntime3 == 18 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 15 && ptime == 18 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b = 1;
             }
             //18~21시
-            else if(ntime4 >= 18 && ntime3 == 21 && a == 1 && ntime4 <= ntime3)
+            else if(ntime >= 18 && ptime == 21 && a == 1 && ntime <= ptime)
             {
                 ni = i;
                 a = 0;
                 b =  1;
             }
             //21~24시
-            else if(ntime4 >= 21 && ntime3 == 0 && a == 1)
+            else if(ntime >= 21 && ptime == 0 && a == 1)
             {
                 ni = i;
                 a = 0;
