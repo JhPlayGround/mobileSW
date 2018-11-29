@@ -83,14 +83,16 @@ public class ClothesFragment extends Fragment {
     ClothesFragment mThis;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
         activity = (MainActivity) getActivity();
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
 
         activity = null;
@@ -207,7 +209,8 @@ public class ClothesFragment extends Fragment {
     }
 
     //초기화
-    public void Initialize() {
+    public void Initialize()
+    {
 
         mWeatherInfomation = new ArrayList<>();
         mThis = this;
@@ -215,7 +218,8 @@ public class ClothesFragment extends Fragment {
         mForeCast.run();
     }
     //현재 시간 메소드
-    public void getTime(){
+    public void getTime()
+    {
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         nTime = mFormat.format(mDate);
@@ -227,7 +231,8 @@ public class ClothesFragment extends Fragment {
 
     }
     //지역 출력 메소드
-    public String LocalPrint(){
+    public String LocalPrint()
+    {
         String LocalData = "";
 
         Bundle bundle = getArguments();
@@ -242,14 +247,16 @@ public class ClothesFragment extends Fragment {
     /* 1 : 00 ~ 03 / 2 : 03 ~ 06 / 3 : 06 ~ 09 / 4 : 09 ~ 12
        5 : 12 ~ 15 / 6 : 15 ~ 18 / 7 : 18 ~ 21 / 8 : 21 ~ 24 */
     //온도 출력 메소드
-    public String TempPrint(){
+    public String TempPrint()
+    {
         String TempData = "";
         TempData =  "최대 기온 : " + mWeatherInfomation.get(ni).getTemp_Max() + "\n"+
                     "최저 기온 : " + mWeatherInfomation.get(ni).getTemp_Min();
         return TempData;
     }
     //구름량 출력 메소드
-    public String CloudPrint(){
+    public String CloudPrint()
+    {
         String CloudData = "";
 
         CloudData =   mWeatherInfomation.get(ni).getWeather_Name();
@@ -257,28 +264,8 @@ public class ClothesFragment extends Fragment {
         return CloudData;
     }
 
-    public String PrintValue() {
-        String mData = "";
-        for (int i = 0; i < mWeatherInfomation.size(); i++) {
-            mData = mData + mWeatherInfomation.get(i).getWeather_Day_Go() + "\r\n"
-                    + mWeatherInfomation.get(i).getWeather_Day_End() + "\r\n"
-                    + mWeatherInfomation.get(i).getWeather_Name() + "\r\n"
-                    + "구름 양 : " + mWeatherInfomation.get(i).getClouds_Value()
-                    + mWeatherInfomation.get(i).getClouds_Per() + "\r\n"
-                    + mWeatherInfomation.get(i).getWind_Name() + "\r\n"
-                    + "바람 속도 : " + mWeatherInfomation.get(i).getWind_Speed() + " mps" + "\r\n"
-                    + "최대 기온 : " + mWeatherInfomation.get(i).getTemp_Max() + "℃" + "\r\n"
-                    + "최저 기온: " + mWeatherInfomation.get(i).getTemp_Min() + "℃" + "\r\n"
-                    + "습도: " + mWeatherInfomation.get(i).getHumidity() + "%" + "\r\n"
-                    + "지역: " + city
-                    + "i의 크기 : " + i ;
-
-            mData = mData + "\r\n" + "----------------------------------------------" + "\r\n";
-        }
-        return mData;
-    }
-
-    public String Now(){
+    public String Now()
+    {
         String now = "";
         //오늘 요일
         String nday = "";
@@ -291,7 +278,8 @@ public class ClothesFragment extends Fragment {
         int a = 0;
         int b = 0;
 
-        for(int i =0; i <mWeatherInfomation.size(); i++){
+        for(int i =0; i <mWeatherInfomation.size(); i++)
+        {
             //now = 요일이 나온다.
             temp = mWeatherInfomation.get(i).getWeather_Day_End().split("T")[0];
             nday = temp.split("-")[2];
