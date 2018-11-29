@@ -16,6 +16,8 @@
         android:layout_weight="0.03"
         android:layout_gravity="center"
         android:hint="ID를 입력해주세요."
+        android:singleLine="true"
+        android:imeOptions="actionDone"
         android:maxLength="20"
         android:background="@drawable/shape_list"
         android:focusable="true"
@@ -31,6 +33,8 @@
         android:layout_weight="0.03"
         android:layout_gravity="center"
         android:hint="PassWord를 입력해주세요."
+        android:singleLine="true"
+        android:imeOptions="actionDone"
         android:layout_below="@id/etID"
         android:maxLength="20"
         android:background="@drawable/shape_list"   />
@@ -74,37 +78,28 @@
         android:imeOptions="actionDone"
         android:background="@drawable/shape_list"   />
     </LinearLayout>
-    <LinearLayout
+
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.03"
-        android:orientation="horizontal"
         android:layout_gravity="center"
         >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
+        <RadioButton
             android:text="남자 아이"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <CheckBox
+            android:layout_gravity="center"
+            />
+        <RadioButton
             android:text="여자 아이"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            />
+    </RadioGroup>
 
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

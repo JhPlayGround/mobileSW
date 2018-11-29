@@ -52,7 +52,28 @@ public class RegistActivity extends AppCompatActivity {
         String Month = editTextMonth.getText().toString();
         String Weight = editTextWeight.getText().toString();
 
-        insertoToDatabase(Id, Pw, Head, Height, Month, Weight);
+        if(Pw.equals(""))
+        {
+            Toast.makeText(this,"비밀번호가 공백입니다.", Toast.LENGTH_SHORT).show();
+        }else if(Head.equals(""))
+        {
+            Toast.makeText(this,"아이 머리둘레가 공백입니다.", Toast.LENGTH_SHORT).show();
+        }
+        else if(Height.equals(""))
+        {
+            Toast.makeText(this,"아이 키가 공백입니다.", Toast.LENGTH_SHORT).show();
+        }
+        else if(Month.equals(""))
+        {
+            Toast.makeText(this,"아이 개월 수가 공백입니다.", Toast.LENGTH_SHORT).show();
+        }
+        else if(Weight.equals(""))
+        {
+            Toast.makeText(this,"아이 몸무게가 공백입니다.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            insertoToDatabase(Id, Pw, Head, Height, Month, Weight);
+        }
     }
     private void insertoToDatabase(String Id, String Pw, String Head, String Height,
                                    String Month ,String Weight) {
@@ -114,11 +135,13 @@ public class RegistActivity extends AppCompatActivity {
                 }
             }
         }
-        InsertData task = new InsertData();
-        task.execute(Id, Pw, Head, Height, Month, Weight);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+            InsertData task = new InsertData();
+            task.execute(Id, Pw, Head, Height, Month, Weight);
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
     }
 
     public void signNo(View view)
