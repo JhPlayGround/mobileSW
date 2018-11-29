@@ -50,8 +50,7 @@ public class ClothesFragment extends Fragment {
     TextView tvTemp;
     TextView tvCloud;
     ImageView ivCloud;
-    ImageView ivClothesData;
-    TextView tvClothes;
+    TextView tvClothesData;
     TextView tvDustData;
     Button btnSetGPS;
 
@@ -112,9 +111,8 @@ public class ClothesFragment extends Fragment {
         ivCloud = (ImageView) view.findViewById(R.id.ivCloud);
         //미세먼지
         tvDustData = (TextView) view.findViewById(R.id.tvDustData);
-        //외출복
-        ivClothesData = (ImageView) view.findViewById(R.id.ivClothesData);
-        tvClothes = (TextView)view.findViewById(R.id.tvCloethesText);
+
+        tvClothesData = (TextView) view.findViewById(R.id.tvClothesData);
 
         btnSetGPS = (Button) view.findViewById(R.id.btnSetGPS);
         Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
@@ -250,21 +248,13 @@ public class ClothesFragment extends Fragment {
                     "최저 기온 : " + mWeatherInfomation.get(ni).getTemp_Min();
         return TempData;
     }
-    //현재 날씨 출력 메소드
+    //구름량 출력 메소드
     public String CloudPrint(){
         String CloudData = "";
 
         CloudData =   mWeatherInfomation.get(ni).getWeather_Name();
 
         return CloudData;
-    }
-
-    //평균 온도 출력 메소드
-    public double AvgTempPrint(){
-
-        Double AvgTemp = 0.0;
-        AvgTemp =   (Double.parseDouble(mWeatherInfomation.get(ni).getTemp_Max()) + Double.parseDouble(mWeatherInfomation.get(ni).getTemp_Min()))/2;
-        return AvgTemp;
     }
 
     public String PrintValue() {
@@ -421,14 +411,12 @@ public class ClothesFragment extends Fragment {
                         tvLocal.setText("데이터가 없습니다");
                        tvTemp.setText("데이터가 없습니다");
                        tvCloud.setText("데이터가 없습니다");
-                       tvClothes.setText("데이터가 없습니다");
 
                     DataToInformation(); // 자료 클래스로 저장,
 
                     String localData = "";
                     String tempData = "";
                     String cloudData = "";
-                    Double avgtempData = 0.0;
                     String now="";
 
                     DataChangedToHangeul();
@@ -436,48 +424,12 @@ public class ClothesFragment extends Fragment {
                     localData = localData + LocalPrint();
                     tempData = tempData + TempPrint();
                     cloudData = cloudData + CloudPrint();
-                    avgtempData = avgtempData + AvgTempPrint();
                     now = now + Now();
 
                     tvLocal.setText(localData);
                     tvTemp.setText(tempData);
                     tvCloud.setText(cloudData);
-
-                    if(avgtempData >=26.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.tog);
-                        tvClothes.setText("다리없는 바디수트");
-                    }
-                    else if(avgtempData >=24.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp24);
-                        tvClothes.setText("다리없는 바디수트+보온성 겉옷");
-                    }
-                    else if(avgtempData >=22.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp22);
-                        tvClothes.setText("전신 바디수트+보온성 겉옷");
-                    }
-                    else if(avgtempData >=20.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp20);
-                        tvClothes.setText("다리없는 바디수트+전신 바디수트+보온성 겉옷");
-                    }
-                    else if(avgtempData >=18.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp18);
-                        tvClothes.setText("보온 내복+전신 바디수트+보온성 겉옷");
-                    }
-                    else if(avgtempData >= 16.0)
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp16);
-                        tvClothes.setText("보온 내복+전신 바디수트+보온성 겉옷+양말");
-                    }
-                    else
-                    {
-                        ivClothesData.setImageResource(R.drawable.temp14);
-                        tvClothes.setText("보온 내복+전신 바디수트+보온성 겉옷+양말+장갑+모자");
-                    }
+                    tvClothesData.setText(now);
 
                     if(cloudData.contains("하늘")) {
                         ivCloud.setImageResource(R.drawable.sun);
