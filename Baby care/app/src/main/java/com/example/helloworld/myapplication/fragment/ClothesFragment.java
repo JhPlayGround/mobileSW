@@ -6,6 +6,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,9 +37,12 @@ import com.example.helloworld.myapplication.weather.ForeCastManager;
 import com.example.helloworld.myapplication.weather.WeatherInfo;
 import com.example.helloworld.myapplication.weather.WeatherToHangeul;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
