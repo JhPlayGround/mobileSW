@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String id =  arg0[0];
 
-                String link = "http://otl9882.codns.com/month.php?Id=" + id;
+                String link = "http://otl9882.codns.com:443/month.php?Id=" + id;
 
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();

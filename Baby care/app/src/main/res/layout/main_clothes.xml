@@ -150,24 +150,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:background="@drawable/shape_box"
             >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="현재 미세먼지"
-            android:gravity="center"    />
+            android:layout_gravity="center"    />
 
         <TextView
-           android:id="@+id/tvDustData"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+            android:id="@+id/tvDustData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
            android:text="0"
-           android:gravity="center"    />
+            android:layout_gravity="center"    />
 
         </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"

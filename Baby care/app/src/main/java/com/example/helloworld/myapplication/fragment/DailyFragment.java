@@ -31,7 +31,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class DailyFragment extends Fragment {
     MainActivity activity;
 
-    public static String sbabymonth; //엄마가 입력한 아기 개월 수
+    public static String sbabymonth= ""; //엄마가 입력한 아기 개월 수
     int babymonth;
 
     @Override

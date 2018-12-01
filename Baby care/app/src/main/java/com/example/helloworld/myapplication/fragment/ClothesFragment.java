@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -69,21 +70,24 @@ public class ClothesFragment extends Fragment {
     String time;
     //현재 시간의 i 값
     int ni = 1;
+    String city;
 
     //설정할 GPS
-    String Slat;
-    String Slon;
+    public static String Slat;
+    public static String Slon;
     //자신의 위치 받기
-    String city;
+    //String city;
 
     //위치정보를 공급하는 근원
     String locationProvider;
     //위치 정보 매니져 객체
     LocationManager locationManager;
 
+    String sDust;
+
     //기본 GPS설정
-    String lon = "126.972460"; // 경도 설정
-    String lat = "37.553176";  // 위도 설정
+    String lon = "126.969630"; // 경도 설정
+    String lat =  "37.553794"; // 위도 설정
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
     ClothesFragment mThis;
@@ -230,8 +234,6 @@ public class ClothesFragment extends Fragment {
         day = nTime.split(" ")[0];
         time = nTime.split(" ")[1];
 
-        tvDustData.setText(nTime);
-
     }
     //지역 출력 메소드
     public String LocalPrint(){
@@ -243,7 +245,6 @@ public class ClothesFragment extends Fragment {
             city = bundle.getString("city");
             LocalData = city;
         }
-
         return LocalData;
     }
     /* 1 : 00 ~ 03 / 2 : 03 ~ 06 / 3 : 06 ~ 09 / 4 : 09 ~ 12
