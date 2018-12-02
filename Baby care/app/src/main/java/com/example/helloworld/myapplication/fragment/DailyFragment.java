@@ -1127,7 +1127,6 @@ public class DailyFragment extends Fragment {
 
                 AlertDialog ad = aDialog.create();
                 ad.show();
-
             }
         });
 
