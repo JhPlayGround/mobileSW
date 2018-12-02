@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            if (response.equalsIgnoreCase("로그인 성공!")) {
+            if (response.equalsIgnoreCase("로그인 성공")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

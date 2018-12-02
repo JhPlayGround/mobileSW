@@ -2,12 +2,11 @@ package com.example.helloworld.myapplication.fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,7 +21,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,16 +31,14 @@ import android.widget.Toast;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
+import com.example.helloworld.myapplication.weather.Dust;
 import com.example.helloworld.myapplication.weather.ForeCastManager;
 import com.example.helloworld.myapplication.weather.WeatherInfo;
 import com.example.helloworld.myapplication.weather.WeatherToHangeul;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -60,6 +56,8 @@ public class ClothesFragment extends Fragment {
     TextView tvClothes;
     TextView tvDustData;
     Button btnSetGPS;
+    //상태바
+    ProgressDialog dialog;
 
     //날짜 변수
     long mNow;
@@ -70,19 +68,16 @@ public class ClothesFragment extends Fragment {
     String time;
     //현재 시간의 i 값
     int ni = 1;
-    String city;
 
     //설정할 GPS
     public static String Slat;
     public static String Slon;
-    //자신의 위치 받기
-    //String city;
 
     //위치정보를 공급하는 근원
     String locationProvider;
     //위치 정보 매니져 객체
     LocationManager locationManager;
-
+    //먼지 값
     String sDust;
 
     //기본 GPS설정
@@ -129,6 +124,20 @@ public class ClothesFragment extends Fragment {
         Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
         Button btnInformation = (Button) view.findViewById(R.id.btnInformation);
 
+        sDust = "미세먼지 정보가 없습니다.";
+
+        try{
+            sDust = new Dust().execute().get();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        tvDustData.setText(sDust);
+
         // LocationManager 객체를 얻어온다
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -150,12 +159,13 @@ public class ClothesFragment extends Fragment {
                     return;
                 }
 
-                Toast.makeText(getContext(),"위치 정보를 받는 중입니다.",Toast.LENGTH_SHORT).show();
-
                 lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
                         1000, // 통지사이의 최소 시간간격 (miliSecond)
                         0, // 통지사이의 최소 변경거리 (m)
                         mLocationListener);
+
+                dialog = ProgressDialog.show(getContext(), "위치 찾는 중",
+                        "현재 위치를 찾고 있습니다.", true);
 
                 //위치정보 받을 대기시간
                 Handler mHandler = new Handler();
@@ -167,9 +177,19 @@ public class ClothesFragment extends Fragment {
                         lon = Slon;
                         lat = Slat;
 
+                        try{
+                            sDust = new Dust().execute().get();
+                        }catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.detach(mThis).attach(mThis).commit();
-
+                        dialog.dismiss();
                         lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
 
                     }
@@ -239,12 +259,19 @@ public class ClothesFragment extends Fragment {
     public String LocalPrint(){
         String LocalData = "";
 
-        Bundle bundle = getArguments();
+        /*Bundle bundle = getArguments();
         if(bundle != null )
         {
             city = bundle.getString("city");
             LocalData = city;
+        }*/
+
+        if(Dust.city ==  null){
+            LocalData = "Seoul";
+        }else{
+            LocalData = Dust.city;
         }
+
         return LocalData;
     }
     /* 1 : 00 ~ 03 / 2 : 03 ~ 06 / 3 : 06 ~ 09 / 4 : 09 ~ 12
@@ -286,7 +313,7 @@ public class ClothesFragment extends Fragment {
                     + "최대 기온 : " + mWeatherInfomation.get(i).getTemp_Max() + "℃" + "\r\n"
                     + "최저 기온: " + mWeatherInfomation.get(i).getTemp_Min() + "℃" + "\r\n"
                     + "습도: " + mWeatherInfomation.get(i).getHumidity() + "%" + "\r\n"
-                    + "지역: " + city
+                    + "지역: " + Dust.city
                     + "i의 크기 : " + i ;
 
             mData = mData + "\r\n" + "----------------------------------------------" + "\r\n";
