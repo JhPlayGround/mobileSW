@@ -1,0 +1,9 @@
+diff a/Baby care/app/src/main/java/com/example/helloworld/myapplication/fragment/DailyFragment.java b/Baby care/app/src/main/java/com/example/helloworld/myapplication/fragment/DailyFragment.java	(rejected hunks)
+@@ -1127,7 +1127,6 @@
+ 
+                 AlertDialog ad = aDialog.create();
+                 ad.show();
+-
+             }
+         });
+ 
