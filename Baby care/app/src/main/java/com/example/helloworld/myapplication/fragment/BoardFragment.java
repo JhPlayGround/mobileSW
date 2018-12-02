@@ -51,7 +51,27 @@ public class BoardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup mainFragmentLayout, @Nullable Bundle savedInstanceState) {
 
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_board,mainFragmentLayout,false);
+        addButton = (Button)view.findViewById(R.id.add) ;
+        mListView = (ListView)view.findViewById(R.id.listView);
+        mMyAdapter = new MyAdapter();
+        i = 0;
+        addButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                dataSetting(mMyAdapter,i);
+                i++;
+                //Intent post = new Intent(getContext(), post.class);
+                //startActivity(post);
+            }
+
+        });
         return view;
+    }
+
+    public void dataSetting(MyAdapter mMyAdapter,int i){
+        mMyAdapter.addItem("name_" + i, "contents_" + i);
+        mMyAdapter.notifyDataSetChanged();
+        mListView.setAdapter(mMyAdapter);
     }
 }
