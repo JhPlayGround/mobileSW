@@ -43,6 +43,7 @@
         android:layout_weight="0.08"
         android:layout_gravity="center"
         android:hint="PassWord를 입력해주세요."
+        android:inputType="textPassword"
         android:layout_below="@id/etID"
         android:maxLength="20"
         android:background="@drawable/shape_list"   />

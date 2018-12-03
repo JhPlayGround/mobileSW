@@ -300,6 +300,7 @@ public class ClothesFragment extends Fragment {
         return AvgTemp;
     }
 
+    //날씨 정보 보여주는 메소드(삭제X)
     public String PrintValue() {
         String mData = "";
         for (int i = 0; i < mWeatherInfomation.size(); i++) {

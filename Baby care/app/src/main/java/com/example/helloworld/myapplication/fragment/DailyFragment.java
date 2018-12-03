@@ -72,7 +72,6 @@ public class DailyFragment extends Fragment {
                 int month = (inmonth+1) - imonth;
 
                 babymonth = (year*12) + month;
-                babymonth = babymonth;
 
                 if(babymonth >= 0 && babymonth < 4 )
                 {
@@ -1127,7 +1126,6 @@ public class DailyFragment extends Fragment {
 
                 AlertDialog ad = aDialog.create();
                 ad.show();
-
             }
         });
 

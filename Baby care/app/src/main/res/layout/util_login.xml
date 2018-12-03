@@ -49,6 +49,7 @@
         android:paddingLeft="15dp"
         android:layout_gravity="center"
         android:hint="PassWord를 입력해주세요."
+        android:inputType="textPassword"
         android:singleLine="true"
         android:imeOptions="actionDone"
         android:layout_below="@id/etID"
@@ -83,8 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:onClick="signEnd"
-            android:clickable="true"
             android:src="@drawable/registbyebutton"   />
 
     </LinearLayout>
