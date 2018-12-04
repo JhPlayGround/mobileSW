@@ -55,9 +55,6 @@ public class CompareFragment extends Fragment{
     String savgWeight;
     String savgHead;
 
-    int Height;
-    int avgHeight;
-
     avg task;
 
     @Override
@@ -122,6 +119,7 @@ public class CompareFragment extends Fragment{
         //평균보다 작다
         int Height = Integer.parseInt(babyHeight);
         int avgHeight = Integer.parseInt(savgHeight);
+
         if(Height < avgHeight)
         {
             imageIndex += 0;

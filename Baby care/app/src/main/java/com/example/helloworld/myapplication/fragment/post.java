@@ -18,14 +18,9 @@ public class post extends Activity {
 
     Context mContext;
 
-    public static String  stitle, sbody;
+    String  title, body;
     EditText edTitle, edBody;
     Button send;
-
-    MyAdapter mMyAdapter;
-
-    BoardFragment mThis;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,17 +28,9 @@ public class post extends Activity {
         mContext = this.getBaseContext();
         edTitle = (EditText)findViewById(R.id.title_post);
         edBody = (EditText)findViewById(R.id.body_post);
-        send = (Button)findViewById(R.id.send_Btn);
 
-        stitle = edTitle.getText().toString();
-        sbody = edBody.getText().toString();
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        title = edTitle.getText().toString();
+        body = edBody.getText().toString();
 
-                finish();
-            }
-        });
     }
-
 }
