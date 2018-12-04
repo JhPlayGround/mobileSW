@@ -29,7 +29,7 @@ public class BoardFragment extends Fragment {
     Button addButton;
     Button reButton;
 
-    MyAdapter mMyAdapter;
+    public static MyAdapter mMyAdapter;
     public static ListView mListView;
 
     public static String title;
@@ -75,7 +75,6 @@ public class BoardFragment extends Fragment {
             }else if(body.equals("") && title.equals(""))
                 dataSetting(mMyAdapter,title,body);
         }
-        mMyAdapter.notifyDataSetChanged();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +94,12 @@ public class BoardFragment extends Fragment {
     }
 
     public void dataSetting(MyAdapter mMyAdapter,String title, String body){
+        mMyAdapter.addItem(title, body);
+        mMyAdapter.notifyDataSetChanged();
+        mListView.setAdapter(mMyAdapter);
+    }
+
+    public static void re(){
         mMyAdapter.addItem(title, body);
         mMyAdapter.notifyDataSetChanged();
         mListView.setAdapter(mMyAdapter);

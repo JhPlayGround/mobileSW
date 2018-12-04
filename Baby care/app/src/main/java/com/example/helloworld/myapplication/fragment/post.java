@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,6 +45,8 @@ public class post extends Activity {
 
                 BoardFragment.title = edTitle.getText().toString();
                 BoardFragment.body = edBody.getText().toString();
+
+                BoardFragment.re();
 
                 finish();
             }
