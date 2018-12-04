@@ -32,8 +32,8 @@ public class BoardFragment extends Fragment {
     MyAdapter mMyAdapter;
     public ListView mListView;
 
-    String title;
-    String body;
+    String title = "1";
+    String body = "2";
 
     @Override
     public void onAttach(Context context){
