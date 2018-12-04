@@ -25,7 +25,7 @@ public class post extends Activity {
 
     String  stitle, sbody;
     EditText edTitle, edBody;
-    Button send;
+    Button send, cancel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,6 @@ public class post extends Activity {
         sbody = edBody.getText().toString();
 
         send = (Button)findViewById(R.id.send_Btn);
-
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +47,14 @@ public class post extends Activity {
 
                 BoardFragment.re();
 
+                finish();
+            }
+        });
+
+        cancel = (Button)findViewById(R.id.cancel_Btn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 finish();
             }
         });
