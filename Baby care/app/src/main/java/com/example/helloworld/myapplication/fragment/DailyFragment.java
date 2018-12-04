@@ -25,6 +25,7 @@ import com.example.helloworld.myapplication.util.PopUpActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -33,9 +34,10 @@ public class DailyFragment extends Fragment {
     MainActivity activity;
     TextView tvDaily;
     TextView tvChange;
-
+    TextView tvtoday;
+    TextView tvreplace;
     public static String sbabymonth= ""; //엄마가 입력한 아기 개월 수
-    int babymonth = 4;
+    int babymonth;
 
     @Override
     public void onAttach(Context context){
@@ -60,12 +62,15 @@ public class DailyFragment extends Fragment {
         ImageView helpImg = (ImageView)view.findViewById(R.id.help);
         tvDaily = (TextView)view.findViewById(R.id.tvDaily);
         tvChange = (TextView)view.findViewById(R.id.tvChange);
+        tvtoday = (TextView)view.findViewById(R.id.tvtoday);
+        tvreplace= (TextView)view.findViewById(R.id.tvreplace);
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int inyear, int inmonth, int dayOfMonth) {
-
-                /*String sYear = sbabymonth.substring(0,2); //입력한 년
+                tvtoday.setText((inmonth+1) +"월 " + dayOfMonth+"일의 이유식");
+                tvreplace.setText((inmonth+1) +"월 " + dayOfMonth+"일의 이유식");
+                String sYear = sbabymonth.substring(0,2); //입력한 년
                 String sMonth = sbabymonth.substring(2,4);//입력한 달
 
                 int iyear = Integer.parseInt(sYear); //입력한 년 int
@@ -76,12 +81,13 @@ public class DailyFragment extends Fragment {
                 int year = inyear - iyear;
                 int month = (inmonth+1) - imonth;
 
-                babymonth = (year*12) + month;*/
+                babymonth = (year*12) + month;
 
                 if(babymonth >= 0 && babymonth < 4 )
                 {
 
-                    tvDaily.setText("오늘의 이유식\n모유, 분유");
+                    tvDaily.setText("모유");
+                    tvChange.setText("분유");
                 }
                 else if(babymonth ==4)
                 {
@@ -152,43 +158,49 @@ public class DailyFragment extends Fragment {
                     {
                         if(dayOfMonth%2 == 1)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 쌀\n대체 음식 : 찹쌀", Toast.LENGTH_LONG).show();
-                            tvDaily.setText("오늘의 이유식\n쌀5");
-                            tvChange.setText("대체 음식\n찹쌀5");
+                            tvDaily.setText("쌀");
+                            tvChange.setText("찹쌀");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 찹쌀\n대체 음식 : 쌀", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("찹쌀");
+                            tvChange.setText("쌀");
                         }
                     }
                     else if(dayOfMonth % 3 == 2) //2,5,8,11,14,17,20,23,26,29
                     {
                         if(dayOfMonth == 2 || dayOfMonth == 14 || dayOfMonth == 26)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 무\n대체 음식 : 감자, 고구마, 애호박, 단호박\n오이, 브로콜리, 콜리플라워, 적양배추", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("무");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박\n오이, 브로콜리, 콜리플라워, 적양배추");
                         }
                         else if(dayOfMonth == 5 || dayOfMonth == 17 || dayOfMonth == 29)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 브로콜리\n대체 음식 : 감자, 고구마, 애호박, 단호박\n 오이, 무, 콜리플라워, 적양배추", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("브로콜리");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박\n 오이, 무, 콜리플라워, 적양배추");
                         }
                         else if(dayOfMonth == 8 || dayOfMonth == 20)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 콜리플라워\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 적양배추", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("콜리플라워");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 적양배추");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 적양배추\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("적양배추");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워");
                         }
                     }
                     else //3,6,9,12,15,18,21,24,27,30
                     {
                         if(dayOfMonth %6 != 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 자두\n대체 음식 : 사과,배,바나나,수박", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("자두");
+                            tvChange.setText("사과,배,바나나,수박");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 수박\n대체 음식 : 사과,배,바나나,자두", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("수박");
+                            tvChange.setText("사과,배,바나나,자두");
                         }
                     }
                 }
@@ -198,53 +210,64 @@ public class DailyFragment extends Fragment {
                     {
                         if(dayOfMonth == 1 || dayOfMonth == 31)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 차조\n대체 음식 : 쌀, 찹쌀, 현미, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("차조");
+                            tvChange.setText("쌀, 찹쌀, 현미, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 7)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 현미\n대체 음식 : 쌀, 찹쌀, 차조, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("현미");
+                            tvChange.setText("쌀, 찹쌀, 차조, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 13)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 보리\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("보리");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 19)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 수수\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 보리, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("수수");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 보리, 옥수수");
                         }
                         else if(dayOfMonth == 25)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 옥수수\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 보리, 수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("옥수수");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 보리, 수수");
                         }
                     }
                     else if(dayOfMonth % 6 == 2) //2,8,14,20,26
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 소고기 안심\n대체 음식 : 전날 먹은 이유식", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("소고기 안심");
+                        tvChange.setText("전날 먹은 이유식");
                     }
                     else if(dayOfMonth % 6 == 3) //3,9,15,21,27
                     {
                         if(dayOfMonth == 3 || dayOfMonth == 21)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 가자미\n대체 음식 : 임연수어, 마른멸치", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("가자미");
+                            tvChange.setText("임연수어, 마른멸치");
                         }
                         else if(dayOfMonth == 9 || dayOfMonth ==27)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 임연수어\n대체 음식 : 가자미, 마른멸치", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("임연수어");
+                            tvChange.setText("가자미, 마른멸치");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 마른멸치\n대체 음식 : 가자미, 임연수어", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("마른멸치");
+                            tvChange.setText("가자미, 임연수어");
                         }
                     }
                     else if(dayOfMonth % 6 == 4) //4,10,16,22,28
                     {
                         if(dayOfMonth %4 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 김\n대체 음식 : 다시마", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("김");
+                            tvChange.setText("다시마");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 다시마\n대체 음식 :김", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("다시마");
+                            tvChange.setText("김");
                         }
 
                     }
@@ -252,38 +275,47 @@ public class DailyFragment extends Fragment {
                     {
                         if(dayOfMonth == 5)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 참깨 or 검은깨\n대체 음식 :밤, 대두, 검은콩, 완두콩, 강낭콩", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("참깨 or 검은깨");
+                            tvChange.setText("밤, 대두, 검은콩, 완두콩, 강낭콩");
                         }
                         else if(dayOfMonth == 17)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 밤\n대체 음식 :참깨, 검은깨, 대두, 검은콩, 완두콩, 강낭콩", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("밤");
+                            tvChange.setText("참깨, 검은깨, 대두, 검은콩, 완두콩, 강낭콩");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 대두 or 검은콩 or 완두콩 or강낭콩\n대체 음식 :참깨, 검은깨, 밤", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("대두 or 검은콩 or 완두콩 or강낭콩");
+                            tvChange.setText("참깨, 검은깨, 밤");
                         }
                     }
                     else  //6,12,18,24,30
                     {
                         if (dayOfMonth == 6)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 당근\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("당근");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
+
                         }
                         else if (dayOfMonth == 12)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 시금치\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("시금치");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
                         }
                         else if (dayOfMonth == 18)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 대추\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("대추");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
                         }
                         else if (dayOfMonth == 24)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 배추 or 양배추\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("배추 or 양배추");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 양송이버섯 or 새송이버섯 or 표고버섯 or 팽이버섯 or느타리버섯\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("양송이버섯 or 새송이버섯 or 표고버섯 or 팽이버섯 or느타리버섯");
+                            tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추");
                         }
                     }
                 }
@@ -293,91 +325,109 @@ public class DailyFragment extends Fragment {
                     {
                         if(dayOfMonth == 1)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 차조\n대체 음식 : 쌀, 찹쌀, 현미, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("차조");
+                            tvChange.setText("쌀, 찹쌀, 현미, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 10)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 현미\n대체 음식 : 쌀, 찹쌀, 차조, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("현미");
+                            tvChange.setText("쌀, 찹쌀, 차조, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 19)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 보리\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("보리");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 수수, 옥수수");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 수수 or 옥수수\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 보리", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("수수 or 옥수수");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 보리");
                         }
                     }
                     else if(dayOfMonth % 9 == 2) //2,11,20,29
                     {
                         if(dayOfMonth %2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 닭 안심\n대체 음식 : 닭 가슴살, 소고기 안심", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("닭 안심");
+                            tvChange.setText("닭 가슴살, 소고기 안심");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 닭 가슴살\n대체 음식 : 닭 안심, 소고기 안심", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("닭 가슴살");
+                            tvChange.setText("닭 안심, 소고기 안심");
                         }
                     }
                     else if(dayOfMonth % 9 == 3) //3,12,21,30
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 조기\n대체 음식 : 대구, 가자미, 임연수어, 마른멸치", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("조기");
+                            tvChange.setText("대구, 가자미, 임연수어, 마른멸치");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 대구\n대체 음식 : 조기, 가자미, 임연수어, 마른멸치", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("대구");
+                            tvChange.setText("조기, 가자미, 임연수어, 마른멸치");
                         }
                     }
                     else if(dayOfMonth % 9 == 4) //4,13,22,31
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 미역\n대체 음식 : 파래, 김, 다시마", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("미역");
+                            tvChange.setText("파래, 김, 다시마");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 파래\n대체 음식 : 미역, 김, 다시마", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("파래");
+                            tvChange.setText("미역, 김, 다시마");
                         }
                     }
                     else if(dayOfMonth % 9 == 5) //5,14,23
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 달걀 노른자\n대체 음식 : 전날 먹인 이유식", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("달걀 노른자");
+                        tvChange.setText("전날 먹인 이유식");
                     }
                     else if(dayOfMonth % 9 == 6) //6,15,24
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 아기용 치즈\n대체 음식 : 전날 먹인 이유식", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("아기용 치즈");
+                        tvChange.setText("전날 먹인 이유식");
                     }
                     else if(dayOfMonth % 9 == 7) //7,16,25
                     {
                         if (dayOfMonth == 7)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 잣\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n두부, 들깨", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("잣");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n두부, 들깨");
                         }
                         else if (dayOfMonth == 16)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 두부\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 들깨", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("두부");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 들깨");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 들깨\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 두부", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("들깨");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 두부");
                         }
 
                     }
                     else if(dayOfMonth % 9 == 8) //8,17,26
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 파슬리\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("파슬리");
+                        tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
                     }
                     else //9,18,27
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 참외\n대체 음식 : 귤", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("참외");
+                            tvChange.setText("사과,배,바나나,자두,수박,귤");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 귤\n대체 음식 : 참외", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("귤");
+                            tvChange.setText("사과,배,바나나,자두,수박,참외");
                         }
                     }
                 }
@@ -387,91 +437,109 @@ public class DailyFragment extends Fragment {
                     {
                         if(dayOfMonth == 1)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 차조\n대체 음식 : 쌀, 찹쌀, 현미, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("차조");
+                            tvChange.setText("쌀, 찹쌀, 현미, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 10)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 현미\n대체 음식 : 쌀, 찹쌀, 차조, 보리, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("현미");
+                            tvChange.setText("쌀, 찹쌀, 차조, 보리, 수수, 옥수수");
                         }
                         else if(dayOfMonth == 19)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 보리\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 수수, 옥수수", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("보리");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 수수, 옥수수");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 수수 or 옥수수\n대체 음식 : 쌀, 찹쌀, 차조, 현미, 보리", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("수수 or 옥수수");
+                            tvChange.setText("쌀, 찹쌀, 차조, 현미, 보리");
                         }
                     }
                     else if(dayOfMonth % 9 == 2) //2,11,20,29
                     {
                         if(dayOfMonth %2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 닭 안심\n대체 음식 : 닭 가슴살, 소고기 안심", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("닭 안심");
+                            tvChange.setText("닭 가슴살, 소고기 안심");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 닭 가슴살\n대체 음식 : 닭 안심, 소고기 안심", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("닭 가슴살");
+                            tvChange.setText("닭 안심, 소고기 안심");
                         }
                     }
                     else if(dayOfMonth % 9 == 3) //3,12,21,30
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 조기\n대체 음식 : 가자미, 임연수어, 마른멸치, 대구", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("조기");
+                            tvChange.setText("대구, 가자미, 임연수어, 마른멸치");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 대구\n대체 음식 : 가자미, 임연수어, 마른멸치, 조기", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("대구");
+                            tvChange.setText("조기, 가자미, 임연수어, 마른멸치");
                         }
                     }
                     else if(dayOfMonth % 9 == 4) //4,13,22,31
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 미역\n대체 음식 : 파래, 김, 다시마", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("미역");
+                            tvChange.setText("파래, 김, 다시마");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 파래\n대체 음식 : 미역, 김, 다시마", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("파래");
+                            tvChange.setText("미역, 김, 다시마");
                         }
                     }
                     else if(dayOfMonth % 9 == 5) //5,14,23
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 달걀 노른자\n대체 음식 : 전날 먹인 이유식", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("달걀 노른자");
+                        tvChange.setText("전날 먹인 이유식");
                     }
                     else if(dayOfMonth % 9 == 6) //6,15,24
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 플레인 요구르트\n대체 음식 : 아기용 치즈", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("플레인 요구르트");
+                        tvChange.setText("아기용 치즈");
                     }
                     else if(dayOfMonth % 9 == 7) //7,16,25
                     {
                         if (dayOfMonth == 7)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 잣\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n두부, 들깨", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("잣");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n두부, 들깨");
                         }
                         else if (dayOfMonth == 16)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 두부\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 들깨", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("두부");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 들깨");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 들깨\n대체 음식 :참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 두부", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("들깨");
+                            tvChange.setText("참깨, 검은깨, 밤, 대두, 검은콩, 완두콩, 강낭콩\n잣, 두부");
                         }
 
                     }
                     else if(dayOfMonth % 9 == 8) //8,17,26
                     {
-                        Toast.makeText(getContext(), "오늘의 이유식 : 파슬리\n대체 음식 : 감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯", Toast.LENGTH_LONG).show();
+                        tvDaily.setText("파슬리");
+                        tvChange.setText("감자, 고구마, 애호박, 단호박, 오이, 무, 브로콜리, 콜리플라워, 적양배추\n당근, 시금치, 대추, 배추, 양배추, 양송이버섯, 새송이버섯, 표고버섯, 팽이버섯, 느타리버섯");
                     }
                     else //9,18,27
                     {
                         if(dayOfMonth % 2 == 0)
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 참외\n대체 음식 : 귤", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("참외");
+                            tvChange.setText("사과,배,바나나,자두,수박,귤");
                         }
                         else
                         {
-                            Toast.makeText(getContext(), "오늘의 이유식 : 귤\n대체 음식 : 참외", Toast.LENGTH_LONG).show();
+                            tvDaily.setText("귤");
+                            tvChange.setText("사과,배,바나나,자두,수박,참외");
                         }
                     }
                 }
@@ -1126,7 +1194,8 @@ public class DailyFragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"아직 태어나지 않았어요.",Toast.LENGTH_LONG).show();
+                    tvDaily.setText("아직 태어나지 않았어요.");
+                    tvChange.setText("아직 태어나지 않았어요.");
                 }
             }
         });

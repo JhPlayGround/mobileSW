@@ -24,7 +24,7 @@ import com.example.helloworld.myapplication.util.LoginActivity;
 public class MainActivity extends AppCompatActivity {
 
     //로그인 정보
-    public static int LOGINRECORD = 1;
+    public static int LOGINRECORD = 0;
     private final int PERMISSIONS_REQUEST_RESULT = 1;
 
     BoardFragment fmBoard;

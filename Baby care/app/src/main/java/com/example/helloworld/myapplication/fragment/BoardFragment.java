@@ -83,13 +83,6 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        reButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    dataSetting(mMyAdapter,title,body);
-            }
-        });
-
         return view;
     }
 
