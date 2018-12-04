@@ -32,8 +32,6 @@ import java.util.List;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
-import com.example.helloworld.myapplication.fragment.BoardFragment;
-import com.example.helloworld.myapplication.fragment.ClothesFragment;
 import com.example.helloworld.myapplication.fragment.CompareFragment;
 import com.example.helloworld.myapplication.fragment.DailyFragment;
 

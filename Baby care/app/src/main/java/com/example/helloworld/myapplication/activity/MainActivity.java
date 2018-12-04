@@ -1,11 +1,8 @@
 package com.example.helloworld.myapplication.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,10 +19,6 @@ import com.example.helloworld.myapplication.fragment.CompareFragment;
 import com.example.helloworld.myapplication.fragment.DailyFragment;
 import com.example.helloworld.myapplication.fragment.MainHomeFragment;
 import com.example.helloworld.myapplication.util.LoginActivity;
-
-import java.security.Permission;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
 
 public class MainActivity extends AppCompatActivity {

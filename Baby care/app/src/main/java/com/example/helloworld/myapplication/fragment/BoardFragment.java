@@ -24,16 +24,17 @@ import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
 
 public class BoardFragment extends Fragment {
-
-
     MainActivity activity;
+
     Button addButton;
+    Button reButton;
 
     MyAdapter mMyAdapter;
-    public ListView mListView;
+    public static ListView mListView;
 
-    String title = "1";
-    String body = "2";
+    public static String title;
+    public static String body;
+
 
     @Override
     public void onAttach(Context context){
@@ -55,17 +56,38 @@ public class BoardFragment extends Fragment {
 
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_board,mainFragmentLayout,false);
         addButton = (Button)view.findViewById(R.id.add) ;
-        mListView = (ListView)view.findViewById(R.id.listView);
-        mMyAdapter = new MyAdapter();
-        addButton.setOnClickListener(new View.OnClickListener() {
+        reButton = (Button)view.findViewById(R.id.re) ;
 
+        mListView = (ListView)view.findViewById(R.id.listView);
+        mListView.setAdapter(mMyAdapter);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+
+
+        if(mMyAdapter == null)
+        {
+            mMyAdapter = new MyAdapter();
+        }else{
+            if(title.equals("")){
+                mMyAdapter.notifyDataSetChanged();
+            }else if(body.equals("")){
+                mMyAdapter.notifyDataSetChanged();
+            }else if(body.equals("") && title.equals(""))
+                dataSetting(mMyAdapter,title,body);
+        }
+        mMyAdapter.notifyDataSetChanged();
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent post = new Intent(getContext(), post.class);
                 startActivity(post);
-                //title = post.stitle;
-                //body = post.sbody;
-                dataSetting(mMyAdapter,title,body);
+            }
+        });
+
+        reButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    dataSetting(mMyAdapter,title,body);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.example.helloworld.myapplication.fragment;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.helloworld.myapplication.R;
+import com.example.helloworld.myapplication.activity.MainActivity;
+import com.example.helloworld.myapplication.util.LoginActivity;
 
 public class post extends Activity {
 
@@ -37,6 +41,10 @@ public class post extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                BoardFragment.title = edTitle.getText().toString();
+                BoardFragment.body = edBody.getText().toString();
+
                 finish();
             }
         });
