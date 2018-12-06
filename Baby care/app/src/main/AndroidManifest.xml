@@ -30,6 +30,7 @@
         <activity android:name=".util.PopUpActivity" />
         <activity android:name=".util.InformationPopUpActivity"/>
         <activity android:name=".fragment.post"/>
+        <activity android:name=".fragment.get"/>
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MyAdapter extends BaseAdapter{
 
     /* 아이템을 세트로 담기 위한 어레이 */
-    private ArrayList<MyItem> mItems = new ArrayList<>();
+    public ArrayList<MyItem> mItems = new ArrayList<>();
 
     @Override
     public int getCount() {

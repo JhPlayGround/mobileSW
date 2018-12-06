@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -27,7 +28,6 @@ public class BoardFragment extends Fragment {
     MainActivity activity;
 
     Button addButton;
-    Button reButton;
 
     public static MyAdapter mMyAdapter;
     public static ListView mListView;
@@ -56,10 +56,18 @@ public class BoardFragment extends Fragment {
 
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.main_board,mainFragmentLayout,false);
         addButton = (Button)view.findViewById(R.id.add) ;
-        reButton = (Button)view.findViewById(R.id.re) ;
 
         mListView = (ListView)view.findViewById(R.id.listView);
         mListView.setAdapter(mMyAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent get = new Intent(getContext(), get.class);
+                get.putExtra("title",title);
+                get.putExtra("body",body);
+                startActivity(get);
+            }
+        });
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
@@ -82,7 +90,6 @@ public class BoardFragment extends Fragment {
                 startActivity(post);
             }
         });
-
         return view;
     }
 
