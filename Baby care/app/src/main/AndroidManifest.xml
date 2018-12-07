@@ -16,21 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name">
+            android:name=".activity.intro"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"    >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
+        </activity>
         <activity android:name=".util.Login" />
         <activity android:name=".util.Regist" />
         <activity android:name=".activity.CancelActivity" />
         <activity android:name=".util.PopUp" />
-        <activity android:name=".util.InformationPopUpActivity"/>
-        <activity android:name=".activity.postActivity"/>
-        <activity android:name=".util.get"/>
+        <activity android:name=".util.InformationPopUpActivity" />
+        <activity android:name=".activity.postActivity" />
+        <activity android:name=".util.get" />
     </application>
 
 </manifest>

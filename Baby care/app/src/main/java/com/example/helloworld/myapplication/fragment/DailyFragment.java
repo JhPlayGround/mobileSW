@@ -58,8 +58,8 @@ public class DailyFragment extends Fragment {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int inyear, int inmonth, int dayOfMonth) {
-                tvtoday.setText((inmonth+1) +"월 " + dayOfMonth+"일의 이유식");
-                tvreplace.setText((inmonth+1) +"월 " + dayOfMonth+"일의 이유식");
+                tvtoday.setText((inmonth+1) +"월 " + dayOfMonth+"일 이유식");
+                tvreplace.setText((inmonth+1) +"월 " + dayOfMonth+"일 대체 이유식");
                 String sYear = sbabymonth.substring(0,2); //입력한 년
                 String sMonth = sbabymonth.substring(2,4);//입력한 달
 

@@ -10,4 +10,8 @@
     <style name="CalendarViewTheme" parent="AppTheme">
         <item name="colorAccent">#CCCCFF</item>
     </style>
+
+    <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@drawable/intro</item>
+    </style>
 </resources>
