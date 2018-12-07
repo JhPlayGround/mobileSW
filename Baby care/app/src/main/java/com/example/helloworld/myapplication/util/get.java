@@ -1,4 +1,4 @@
-package com.example.helloworld.myapplication.fragment;
+package com.example.helloworld.myapplication.util;
 
 import android.app.Activity;
 import android.content.Context;

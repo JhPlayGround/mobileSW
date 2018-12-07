@@ -32,10 +32,11 @@ import java.util.List;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
+import com.example.helloworld.myapplication.activity.postActivity;
 import com.example.helloworld.myapplication.fragment.CompareFragment;
 import com.example.helloworld.myapplication.fragment.DailyFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     ViewFlipper Vf;
     HttpPost httppost;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog dialog = null;
     user utask;
     delete dtask;
+
+    String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         imgSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(LoginActivity.this, "로그인 중",
+                dialog = ProgressDialog.show(Login.this, "로그인 중",
                         "회원정보를 찾고 있습니다...", true);
                 new Thread(new Runnable() {
                     public void run() {
@@ -86,11 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                 String Pw = inPW.getText().toString();
 
                 if (Id.equals("")) {
-                    Toast.makeText(LoginActivity.this, "삭제하실 ID가 공백입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "삭제하실 ID가 공백입니다.", Toast.LENGTH_SHORT).show();
                 } else if (Pw.equals("")) {
-                    Toast.makeText(LoginActivity.this, "삭제하실 ID의 비밀번호가 공백입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "삭제하실 ID의 비밀번호가 공백입니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    dialog = ProgressDialog.show(LoginActivity.this, "삭제 요청중",
+                    dialog = ProgressDialog.show(Login.this, "삭제 요청중",
                             "회원정보를 찾고 있습니다...", true);
                     new Thread(new Runnable() {
                         public void run() {
@@ -122,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"" + response,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"" + response,Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -133,18 +136,19 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         MainActivity.LOGINRECORD = 1;
                         EditText inID = (EditText)findViewById(R.id.etID);
-                        String Id = inID.getText().toString();
+                        Id = inID.getText().toString();
 
+                        postActivity.Id = Id;
                         utask = new user();
                         utask.execute(Id);
 
                     }
                 });
 
-                startActivity((new Intent(LoginActivity.this, MainActivity.class)));
+                startActivity((new Intent(Login.this, MainActivity.class)));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)
@@ -176,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"" + response,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"" + response,Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -198,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
             } else {
-                Toast.makeText(LoginActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "삭제 실패", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)
@@ -295,7 +299,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
 
-                Toast.makeText(LoginActivity.this, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -303,7 +307,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signUp(View view)
     {
-        Intent intent = new Intent(this, RegistActivity.class);
+        Intent intent = new Intent(this, Regist.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

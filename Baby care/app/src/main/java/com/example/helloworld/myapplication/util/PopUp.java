@@ -6,7 +6,7 @@ import android.view.Window;
 
 import com.example.helloworld.myapplication.R;
 
-public class PopUpActivity extends AppCompatActivity {
+public class PopUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

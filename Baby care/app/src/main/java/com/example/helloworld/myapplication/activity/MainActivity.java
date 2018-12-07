@@ -18,13 +18,13 @@ import com.example.helloworld.myapplication.fragment.ClothesFragment;
 import com.example.helloworld.myapplication.fragment.CompareFragment;
 import com.example.helloworld.myapplication.fragment.DailyFragment;
 import com.example.helloworld.myapplication.fragment.MainHomeFragment;
-import com.example.helloworld.myapplication.util.LoginActivity;
+import com.example.helloworld.myapplication.util.Login;
 
 
 public class MainActivity extends AppCompatActivity {
 
     //로그인 정보
-    public static int LOGINRECORD = 0;
+    public static int LOGINRECORD = 1;
     private final int PERMISSIONS_REQUEST_RESULT = 1;
 
     BoardFragment fmBoard;
@@ -43,22 +43,22 @@ public class MainActivity extends AppCompatActivity {
             if(LOGINRECORD==0) {
                 switch (item.getItemId()) {
                     case R.id.navigation_clothes:
-                        Intent login1 = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent login1 = new Intent(getApplicationContext(), Login.class);
                         login1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login1);
                         return true;
                     case R.id.navigation_daily:
-                        Intent login2 = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent login2 = new Intent(getApplicationContext(), Login.class);
                         login2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login2);
                         return true;
                     case R.id.navigation_compare:
-                        Intent login3 = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent login3 = new Intent(getApplicationContext(), Login.class);
                         login3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login3);
                         return true;
                     case R.id.navigation_board:
-                        Intent login4 = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent login4 = new Intent(getApplicationContext(), Login.class);
                         login4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login4);
                         return true;

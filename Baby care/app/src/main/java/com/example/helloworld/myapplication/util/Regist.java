@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
 
 
-public class RegistActivity extends AppCompatActivity {
+public class Regist extends AppCompatActivity {
 
     private EditText editTextId;
     private EditText editTextPw;
@@ -110,7 +109,7 @@ public class RegistActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(RegistActivity.this, "잠시만 기다려주세요.", null, true, true);
+                loading = ProgressDialog.show(Regist.this, "잠시만 기다려주세요.", null, true, true);
             }
             @Override
             protected void onPostExecute(String s) {
@@ -168,7 +167,7 @@ public class RegistActivity extends AppCompatActivity {
             InsertData task = new InsertData();
             task.execute(Id, Pw, Head, Height, Month, Weight, Gender);
 
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
 
     }

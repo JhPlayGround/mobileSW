@@ -24,13 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".util.LoginActivity" />
-        <activity android:name=".util.RegistActivity" />
+        <activity android:name=".util.Login" />
+        <activity android:name=".util.Regist" />
         <activity android:name=".activity.CancelActivity" />
-        <activity android:name=".util.PopUpActivity" />
+        <activity android:name=".util.PopUp" />
         <activity android:name=".util.InformationPopUpActivity"/>
-        <activity android:name=".fragment.post"/>
-        <activity android:name=".fragment.get"/>
+        <activity android:name=".activity.postActivity"/>
+        <activity android:name=".util.get"/>
     </application>
 
 </manifest>

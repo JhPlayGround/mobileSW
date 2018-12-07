@@ -1,30 +1,38 @@
 package com.example.helloworld.myapplication.fragment;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
+import com.example.helloworld.myapplication.activity.postActivity;
+import com.example.helloworld.myapplication.util.MyAdapter;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 
 public class BoardFragment extends Fragment {
+    private static board task;
     MainActivity activity;
 
     Button addButton;
@@ -62,47 +70,100 @@ public class BoardFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent get = new Intent(getContext(), get.class);
+                Intent get = new Intent(getContext(), com.example.helloworld.myapplication.util.get.class);
                 get.putExtra("title",title);
                 get.putExtra("body",body);
                 startActivity(get);
             }
         });
-        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-
-
-        if(mMyAdapter == null)
-        {
-            mMyAdapter = new MyAdapter();
-        }else{
-            if(title.equals("")){
-                mMyAdapter.notifyDataSetChanged();
-            }else if(body.equals("")){
-                mMyAdapter.notifyDataSetChanged();
-            }else if(body.equals("") && title.equals(""))
-                dataSetting(mMyAdapter,title,body);
-        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent post = new Intent(getContext(), post.class);
+                Intent post = new Intent(getContext(), postActivity.class);
                 startActivity(post);
             }
         });
+
+        re();
+
         return view;
     }
 
-    public void dataSetting(MyAdapter mMyAdapter,String title, String body){
-        mMyAdapter.addItem(title, body);
-        mMyAdapter.notifyDataSetChanged();
-        mListView.setAdapter(mMyAdapter);
-    }
-
     public static void re(){
-        mMyAdapter.addItem(title, body);
-        mMyAdapter.notifyDataSetChanged();
-        mListView.setAdapter(mMyAdapter);
+
+        mMyAdapter = new MyAdapter();
+        task = new board();
+        task.execute();
     }
 
+    private static class board extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                String link = "http://otl9882.codns.com:443/list.php";
+
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                return sb.toString();
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+                for (int i = 0; i <result.length(); i++) {
+                    try {
+                        if (i == 0)
+                        {
+                            title = result.split(",")[0];
+                            body = result.split(",")[1];
+                            mMyAdapter.addItem(title, body);
+                            mMyAdapter.notifyDataSetChanged();
+                            mListView.setAdapter(mMyAdapter);
+                        }
+                        else if (!result.split(",")[i].isEmpty()) {
+                            int a = i*2;
+                            title = result.split(",")[i*2];
+                            body = result.split(",")[a+1];
+                            mMyAdapter.addItem(title, body);
+                            mMyAdapter.notifyDataSetChanged();
+                            mListView.setAdapter(mMyAdapter);
+                        }
+                        else {
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.print(e);
+                    }
+            }
+                title = "";
+                body = "";
+        }
+    }
 }
