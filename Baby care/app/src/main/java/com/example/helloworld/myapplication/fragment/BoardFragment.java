@@ -20,6 +20,8 @@ import com.example.helloworld.myapplication.R;
 import com.example.helloworld.myapplication.activity.MainActivity;
 import com.example.helloworld.myapplication.activity.postActivity;
 import com.example.helloworld.myapplication.util.MyAdapter;
+import com.example.helloworld.myapplication.util.MyItem;
+import com.example.helloworld.myapplication.util.get;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -70,9 +72,13 @@ public class BoardFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent get = new Intent(getContext(), com.example.helloworld.myapplication.util.get.class);
-                get.putExtra("title",title);
-                get.putExtra("body",body);
+                MyItem myItem = (MyItem) parent.getItemAtPosition(position);
+
+                Bundle extras = new Bundle();
+                extras.putString("title",myItem.getName());
+                extras.putString("body",myItem.getContents());
+                Intent get = new Intent(getContext(), get.class);
+                get.putExtras(extras);
                 startActivity(get);
             }
         });

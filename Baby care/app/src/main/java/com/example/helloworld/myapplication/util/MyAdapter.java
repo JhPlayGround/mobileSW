@@ -62,11 +62,7 @@ public class MyAdapter extends BaseAdapter{
     /* 아이템 데이터 추가를 위한 함수. 자신이 원하는대로 작성 */
     public void addItem(String name, String contents) {
 
-        MyItem mItem = new MyItem();
-
-        /* MyItem에 아이템을 setting한다. */
-        mItem.setName(name);
-        mItem.setContents(contents);
+        MyItem mItem = new MyItem(name,contents);
 
         /* mItems에 MyItem을 추가한다. */
         mItems.add(mItem);

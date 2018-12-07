@@ -21,4 +21,10 @@ public class MyItem {
     public void setContents(String contents) {
         this.contents = contents;
     }
+
+    public MyItem(String name, String contents)
+    {
+        this.name = name;
+        this.contents = contents;
+    }
 }
