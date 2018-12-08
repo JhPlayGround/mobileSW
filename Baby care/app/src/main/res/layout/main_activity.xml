@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.helloworld.myapplication.activity.MainActivity">
+    tools:context="com.babycare.helloworld.myapplication.activity.MainActivity">
 <FrameLayout
     android:id="@+id/mainFragmentLayout"
     android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.helloworld.myapplication.util.InformationPopUpActivity"
+    tools:context="com.babycare.helloworld.myapplication.util.InformationPopUpActivity"
     android:orientation="vertical"
     android:background="@drawable/shape_list"   >
         <ListView

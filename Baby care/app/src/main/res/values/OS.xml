@@ -3,7 +3,12 @@
     <string-array name="os">
         <item>날씨 API[openweather]</item>
         <item>미세먼지 API[Air Quality]</item>
-        <item>포토 뷰[https://github.com/chrisbanes/PhotoView]</item>
+        <item>포토 뷰\n[https://github.com/chrisbanes/PhotoView]</item>
+        <item>아이콘\n[Icons made by Smashicons from www.flaticon.com is licensed by CC 3.0 BY]\n
+[Icons made by Freepik from www.flaticon.com is licensed by CC 3.0 BY]\n
+[Icons made by surang from www.flaticon.com is licensed by CC 3.0 BY]\n
+[Icons made by Good Ware from www.flaticon.com is licensed by CC 3.0 BY\n
+[Icons made by Dave Gandy from www.flaticon.com is licensed by CC 3.0 BY]</item>
     </string-array>
 
 </resources>
